@@ -1,6 +1,6 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
-        """
+        
         ## S1:
         if n == 0: return 1
         if x == 0:
@@ -38,4 +38,4 @@ class Solution:
         # If n is non-negative, call quick_power with x and n directly.
         # Otherwise, calculate the reciprocal of the positive power.
         return quick_power(x, n) if n >= 0 else 1 / quick_power(x, -n)
-                
+        """        
