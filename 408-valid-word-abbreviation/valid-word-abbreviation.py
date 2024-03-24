@@ -1,8 +1,8 @@
 class Solution:
     def validWordAbbreviation(self, word: str, abbr: str) -> bool:
-        """
+        
         ## S2: Two Pointers (No nested Loop)
-        ## T: O(M+N)
+        ## T: O(N)
         ## S: O(1)
 
         i, j, m, prev = len(word), len(abbr), 1, None
@@ -49,3 +49,4 @@ class Solution:
         if (i, j) == (m, n): return True
         return False        
         
+        """
