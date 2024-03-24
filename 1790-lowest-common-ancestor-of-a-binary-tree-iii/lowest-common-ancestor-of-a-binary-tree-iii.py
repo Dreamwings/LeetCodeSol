@@ -11,7 +11,18 @@ class Node:
 class Solution:
     def lowestCommonAncestor(self, A: 'Node', B: 'Node') -> 'Node':
         
+        ## S2: Two Pointers
+        ## Time: O(logN) 
+        ## Space: O(1)
 
+        pa, pb = A, B
+        while pa != pb:
+            pa = pa.parent if pa.parent else B
+            pb = pb.parent if pb.parent else A
+
+        return pa
+
+        """
         ## S1:
         ## Time: O(logN) 
         ## Space: O(logN)
@@ -28,3 +39,5 @@ class Solution:
             B = B.parent
 
         return None
+        """
+        
