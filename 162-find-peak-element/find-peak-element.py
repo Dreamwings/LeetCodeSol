@@ -1,6 +1,8 @@
 class Solution:
     def findPeakElement(self, nums: List[int]) -> int:
         
+        ## S1: Binary Search
+        
         n = len(nums)
         if n == 1: return 0
         if n == 2:
