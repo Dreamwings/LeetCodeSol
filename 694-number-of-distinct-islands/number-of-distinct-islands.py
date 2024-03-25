@@ -1,7 +1,7 @@
 class Solution:
     def numDistinctIslands(self, grid: List[List[int]]) -> int:
 
-        """
+        
         ## S1: DFS
         ## T: O(M * N)
         ## S: O(M * N)
@@ -70,3 +70,4 @@ class Solution:
                     bfs(single_row, single_col)
         
         return len(islands)
+        """
