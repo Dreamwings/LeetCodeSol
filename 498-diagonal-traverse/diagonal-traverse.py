@@ -2,7 +2,7 @@ class Solution:
     def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
 
         from collections import defaultdict
-        
+        """
         ## S1: Two for loops
         ## T: O(MN + (M+N)log(M+N))
         ## S: O(M+N)
@@ -28,7 +28,7 @@ class Solution:
         ## S2: One for loop + One while loop
         ## T: O((M+N)*N)
         ## S: O(M+N)
-        m, n = len(matrix), len(matrix[0])
+        m, n = len(mat), len(mat[0])
       
         # This is the list which will hold the elements in diagonal order.
         res = []
@@ -50,7 +50,7 @@ class Solution:
             # Fetch the elements along the current diagonal.
             # Continue while 'row' is within the matrix row range and 'col' is non-negative.
             while row < m and col >= 0:
-                temp.append(matrix[row][col])
+                temp.append(mat[row][col])
                 row += 1  # Move down to the next row.
                 col -= 1  # Move left to the next column.
           
@@ -64,7 +64,8 @@ class Solution:
       
         # Return the final result list.
         return res
-
+        
+        """
         ## S3
         
         m, n = len(mat), len(mat[0])
