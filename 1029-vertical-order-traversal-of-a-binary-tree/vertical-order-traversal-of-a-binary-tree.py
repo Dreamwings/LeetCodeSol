@@ -8,7 +8,7 @@ class Solution:
     def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
         
         from collections import defaultdict
-        """
+        
         ## S1: BFS
         ## T: O(NlogN)
         ## S: O(N)
@@ -69,4 +69,4 @@ class Solution:
             res[-1].append(val)
 
         return res
-        
+        """
