@@ -9,8 +9,10 @@ class Node:
 
 class Solution:
     def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
-        """
+        
         ## S1: DFS
+        ## T: O(N)
+        ## S: O(logN) for avg, O(N) for worst
 
         if not root: return None
 
@@ -36,7 +38,10 @@ class Solution:
         return head
         """
 
-        ## S2: 
+        ## S2: DFS
+        ## T: O(N)
+        ## S: O(logN) for avg, O(N) for worst
+
         def in_order_traverse(node):
             if node is None:
                 return
@@ -66,3 +71,4 @@ class Solution:
         head.left = prev
 
         return head
+        """
