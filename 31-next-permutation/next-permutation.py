@@ -3,7 +3,7 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        """
+        
         ## S1: 
         ## use the example :[1,2,3,4,5,5,5,4,3,2,1]
         ## how ?     step 1:[1,2,3,5,5,5,4,4,3,2,1] from swap nums[3] = 4 and nums[6] = 5
@@ -35,7 +35,7 @@ class Solution:
         nums[l:] = nums[l:][::-1]
         
         """
-        
+
         ## S2:
 
         n = len(nums)
@@ -59,3 +59,4 @@ class Solution:
         # Finally, reverse the elements following the 'pivot' (inclusive if pivot is -1)
         # to get the lowest possible sequence with the 'pivot' being the prefix
         nums[pivot + 1:] = reversed(nums[pivot + 1:])
+        """
