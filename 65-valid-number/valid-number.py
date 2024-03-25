@@ -1,7 +1,9 @@
 class Solution:
     def isNumber(self, s: str) -> bool:
-        """
+        
         ## S1:
+        ## T: O(1)
+        ## S: O(N)
         # special = {"inf", "-inf", "+inf", "Infinity", "infinity", "+Infinity", "-Infinity", "+infinity", "-infinity", "nan"}
 
         try:
@@ -14,6 +16,8 @@ class Solution:
 
         """
         ## S2:
+        ## T: O(N)
+        ## S: O(1)
 
         s = s.strip()
         if not s:
@@ -43,5 +47,5 @@ class Solution:
                 seenNum = True
 
         return seenNum
-        
+        """
         
