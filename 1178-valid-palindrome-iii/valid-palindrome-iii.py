@@ -1,25 +1,38 @@
 class Solution:
     def isValidPalindrome(self, s: str, k: int) -> bool:
 
-        ## S2: DFS + Memory
+        ## S3: DP
+        ## T: O(N^2)
+        ## S: O(N^2)
 
-        @cache
-        def isValid(i, j, available):
-            if available < 0:
-                return False
-            elif i >= j:
-                return True
-            elif s[i] == s[j]:
-                return isValid(i + 1, j - 1, available)
-            else:
-                return isValid(i + 1, j, available - 1) or isValid(i, j - 1, available - 1)
-
-        return isValid(0, len(s) - 1, k)
+        n = len(s)
+        dp = [[0] * n for _ in range(n)]
+      
+        # Each single character is a palindrome, so we fill the diagonal with 1's
+        for i in range(n):
+            dp[i][i] = 1
+      
+        for i in range(n - 2, -1, -1):
+            # Start from the next character till the end of the string
+            for j in range(i + 1, n):
+                # If characters match, extend the n of the palindrome by 2
+                if s[i] == s[j]:
+                    dp[i][j] = dp[i + 1][j - 1] + 2
+                # If no match, take the maximum n of the palindrome without one of the characters
+                else:
+                    dp[i][j] = max(dp[i + 1][j], dp[i][j - 1])
+              
+                # Check if the current palindromic subsequence plus allowed deletions covers the entire string
+                if dp[i][j] + k >= n:
+                    return True
+      
+        return False
 
         """
+        
         ## S1: Two Pointers + BFS
         ## T: O(N^2)
-        ## S: O(N^2) 
+        ## S: O(N^2)
 
         # queue holds a tuple of `l` and `r`, and the depth `curr_k`.
         queue = deque([(0, len(s) - 1, 0)])
@@ -50,5 +63,21 @@ class Solution:
             if not visited[l][r-1]:
                 queue.append((l, r-1, curr_k+1))
                 visited[l][r-1] = True
+
+
+        ## S2: DFS + Memory
+
+        @cache
+        def isValid(i, j, available):
+            if available < 0:
+                return False
+            elif i >= j:
+                return True
+            elif s[i] == s[j]:
+                return isValid(i + 1, j - 1, available)
+            else:
+                return isValid(i + 1, j, available - 1) or isValid(i, j - 1, available - 1)
+
+        return isValid(0, len(s) - 1, k)
 
         """
