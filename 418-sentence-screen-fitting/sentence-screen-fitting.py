@@ -1,7 +1,26 @@
 class Solution:
     def wordsTyping(self, sentence: List[str], rows: int, cols: int) -> int:
+
+        ## S1: Binary Search
+        ## T: O(R*logN)
+        ## S: O(N)
+
+        prefix = [0]
+        for x in sentence: prefix.append(prefix[-1] + len(x) + 1)
+        
+        ans = j = 0
+        for i in range(rows): 
+            n = prefix[-1] - prefix[j]
+            if n > cols+1: 
+                j = bisect_right(prefix, prefix[j]+cols+1)-1
+            elif n <= cols+1: 
+                q, r = divmod(cols+1-n, prefix[-1])
+                ans += 1+q
+                j = bisect_right(prefix, r)-1
+        return ans     
+
         """
-        ## S1:
+        ## S2:
 
         str=" ".join(sentence) + " "
         valid_space = 0
@@ -35,20 +54,3 @@ class Solution:
         return total//n
 
         """
-        ## S2: Binary Search
-        ## T: O(R*logN)
-        ## S: O(N)
-
-        prefix = [0]
-        for x in sentence: prefix.append(prefix[-1] + len(x) + 1)
-        
-        ans = j = 0
-        for i in range(rows): 
-            n = prefix[-1] - prefix[j]
-            if n > cols+1: 
-                j = bisect_right(prefix, prefix[j]+cols+1)-1
-            elif n <= cols+1: 
-                q, r = divmod(cols+1-n, prefix[-1])
-                ans += 1+q
-                j = bisect_right(prefix, r)-1
-        return ans     
