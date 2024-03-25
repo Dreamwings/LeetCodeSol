@@ -1,7 +1,25 @@
 class Solution:
     def isValidPalindrome(self, s: str, k: int) -> bool:
-        
+
+        ## S2: DFS + Memory
+
+        @cache
+        def isValid(i, j, available):
+            if available < 0:
+                return False
+            elif i >= j:
+                return True
+            elif s[i] == s[j]:
+                return isValid(i + 1, j - 1, available)
+            else:
+                return isValid(i + 1, j, available - 1) or isValid(i, j - 1, available - 1)
+
+        return isValid(0, len(s) - 1, k)
+
+        """
         ## S1: Two Pointers + BFS
+        ## T: O(N^2)
+        ## S: O(N^2) 
 
         # queue holds a tuple of `l` and `r`, and the depth `curr_k`.
         queue = deque([(0, len(s) - 1, 0)])
@@ -32,3 +50,5 @@ class Solution:
             if not visited[l][r-1]:
                 queue.append((l, r-1, curr_k+1))
                 visited[l][r-1] = True
+
+        """
