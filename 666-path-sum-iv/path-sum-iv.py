@@ -1,7 +1,6 @@
 class Solution:
     def pathSum(self, nums: List[int]) -> int:
         
-        """
         ## S1: DFS
         ## T: O(N)
         ## S: O(H)
@@ -44,4 +43,4 @@ class Solution:
 
         return sum(d[v] for v in leaves)        
 
-
+        """
