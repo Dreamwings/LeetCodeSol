@@ -4,6 +4,7 @@ class Solution:
         ## S1: Sorting
         ## T: O(NlogN)
         ## S: O(N)
+        
         if len(a) <= 1: return a
         a.sort(key=lambda x: x[0])
         res = [a[0]]
