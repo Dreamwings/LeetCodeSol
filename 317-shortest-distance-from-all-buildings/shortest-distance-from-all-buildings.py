@@ -2,8 +2,10 @@ class Solution:
     def shortestDistance(self, grid: List[List[int]]) -> int:
         
         from collections import defaultdict
-        """
+        
         ## S1 BFS
+        ## T: O((M*N)^2)
+        ## S: O(MN)
 
         if not grid or not grid[0]: return -1
         m, n = len(grid), len(grid[0])
@@ -49,6 +51,8 @@ class Solution:
 
         """
         ## S2: BFS
+        ## T: O((M*N)^2)
+        ## S: O(MN)
 
         m, n = len(grid), len(grid[0])
         queue = deque()
@@ -98,3 +102,4 @@ class Solution:
       
         # If no cell can reach all buildings, return -1; otherwise, return the minimum distance
         return -1 if answer == float('inf') else answer
+        """
