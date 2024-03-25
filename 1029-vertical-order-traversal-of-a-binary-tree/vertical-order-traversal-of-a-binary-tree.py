@@ -40,6 +40,8 @@ class Solution:
 
         """
         ## S2: DFS
+        ## T: O(NlogN)
+        ## S: O(N)
 
         nodes = []
         def dfs(node, r, c):
@@ -51,10 +53,20 @@ class Solution:
         
         dfs(root, 0, 0)
         nodes = sorted(nodes, key=lambda x:(x[1], x[0], x[2]))
-        d = defaultdict(list)
-        for i, j, k in nodes:
-            d[j].append(k)
-        res = []
-        for i in d.values():
-            res.append(i)
+        # d = defaultdict(list)
+        # for i, j, k in nodes:
+        #     d[j].append(k)
+        # res = []
+        # for i in d.values():
+        #     res.append(i)
+        # return res
+
+        res, prev = [], float('-inf')
+        for i, j, val in nodes:
+            if prev != j:
+                res.append([])
+                prev = j
+            res[-1].append(val)
+
         return res
+        
