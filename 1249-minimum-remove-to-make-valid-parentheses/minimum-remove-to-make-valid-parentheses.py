@@ -16,8 +16,10 @@ class Solution:
                 else:
                     s[i] = ''
         
-        while stack:
-            s[stack.pop()] = ''
+        # while stack:
+        #     s[stack.pop()] = ''
+        for i in stack:
+            s[i] = ''
 
         return ''.join(s)
         
