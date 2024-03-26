@@ -7,6 +7,26 @@
 class Solution:
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
         
+        ## S3: DFS
+        ## T: O(N)
+        ## S: O(H)
+        def dfs(node):
+            if not node:
+                return
+            if low <= node.val <= high:
+                self.total_sum += node.val
+                dfs(node.left)
+                dfs(node.right)
+            elif node.val < low:
+                dfs(node.right)
+            elif node.val > high:
+                dfs(node.left)
+
+        self.total_sum = 0
+        dfs(root)
+        return self.total_sum
+
+        """
         ## S2:  Iterative BFS
         ## Time: O(N)
         ## Space: O(N)
@@ -29,10 +49,10 @@ class Solution:
         
         return res
         
-        """
+        
         ## S1: Recursive DFS
         ## Time: O(N)
-        ## Space: O(N)
+        ## Space: O(H)
         
         res = 0
         if not root: return res
