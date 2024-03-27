@@ -1,6 +1,6 @@
 class Solution:
     def generateSentences(self, synonyms: List[List[str]], text: str) -> List[str]:
-        """
+        
         ## S1: Iterative BFS
         ## T: 
         ## S:
@@ -49,3 +49,8 @@ class Solution:
                             stack.append(new_t)
                         
         return sorted(list(res))
+
+        ## S3: Union Find + DFS
+        ## https://algo.monster/liteproblems/1258
+
+        """
