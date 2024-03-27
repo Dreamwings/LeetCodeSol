@@ -1,9 +1,10 @@
 class Solution:
     def generateSentences(self, synonyms: List[List[str]], text: str) -> List[str]:
-
+        """
         ## S1: Iterative BFS
         ## T: 
         ## S:
+
         graph = collections.defaultdict(set)
         bfs = collections.deque()
         ans = set()
@@ -22,3 +23,29 @@ class Solution:
                         if newsent not in ans:
                             bfs.append(newsent)
         return sorted(list(ans))
+
+        """
+        ## S2: DFS
+        ## T: 
+        ## S:
+
+        graph = collections.defaultdict(list)
+        for k,v in synonyms:
+            graph[k].append(v)
+            graph[v].append(k)
+            
+        res = set()
+        stack = [text]
+        while stack:
+            cur_t = stack.pop()
+            res.add(cur_t)
+            
+            cur_ws = cur_t.split()
+            for i in range(len(cur_ws)):
+                if cur_ws[i] in graph:
+                    for rw in graph[cur_ws[i]]:
+                        new_t = " ".join(cur_ws[:i] + [rw] + cur_ws[i+1:])
+                        if new_t not in res:
+                            stack.append(new_t)
+                        
+        return sorted(list(res))
