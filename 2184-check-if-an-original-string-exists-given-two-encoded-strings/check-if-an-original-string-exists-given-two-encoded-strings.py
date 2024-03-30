@@ -1,6 +1,11 @@
 class Solution:
     def possiblyEquals(self, s1: str, s2: str) -> bool:
 
+        ## S3: DP
+        ## https://algo.monster/liteproblems/2060
+        ## T: O(M * N * (M + N))
+        ## S: O(M * N * (M + N))
+
         ## S1: DP
 
         def gg(s): 
