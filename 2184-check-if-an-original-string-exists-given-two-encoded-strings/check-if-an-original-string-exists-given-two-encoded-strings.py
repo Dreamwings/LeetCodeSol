@@ -1,6 +1,7 @@
 class Solution:
     def possiblyEquals(self, s1: str, s2: str) -> bool:
 
+        """
         ## S3: DP
         ## https://algo.monster/liteproblems/2060
         ## T: O(M * N * (M + N))
@@ -9,7 +10,7 @@ class Solution:
         ## S1: DP
 
         def gg(s): 
-            """Return possible length."""
+            # Return possible length.
             ans = {int(s)}
             for i in range(1, len(s)): 
                 ans |= {x+y for x in gg(s[:i]) for y in gg(s[i:])}
@@ -17,7 +18,7 @@ class Solution:
         
         @cache
         def fn(i, j, diff): 
-            """Return True if s1[i:] matches s2[j:] with given differences."""
+            # Return True if s1[i:] matches s2[j:] with given differences.
             if i == len(s1) and j == len(s2): return diff == 0
             if i < len(s1) and s1[i].isdigit(): 
                 ii = i
@@ -78,4 +79,4 @@ class Solution:
             return False
         
         return dfs(s1, s2, 0, 0, 0)
-        """
+        
