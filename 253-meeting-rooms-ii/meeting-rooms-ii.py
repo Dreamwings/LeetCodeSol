@@ -1,9 +1,9 @@
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
-        
+        """
         ## S1: Sorting
-        ## Time: O(NlogN)
-        ## Space: O(N)
+        ## T: O(NlogN)
+        ## S: O(N)
 
         a = []
         for start, end in intervals:
@@ -18,10 +18,11 @@ class Solution:
         
         return res
         
-        """
+        
         ## S2:
         ## T: O(1000010) -> O(1)
         ## S: O(1000010) -> O(1)
+
         from itertools import accumulate
         # The range is chosen such that it covers all possible meeting times
         meeting_delta = [0] * 1000010
@@ -35,12 +36,15 @@ class Solution:
         # "max" to find the maximum number of concurrent meetings
         return max(accumulate(meeting_delta))
 
+        """
+        ## S3: Heap 
+        ## T: O(NlogN)
+        ## S: O(N)
 
-        ## S3: Heap (Not working because the interval data structure can't 
-        ## be sorted, need a separate sort function)
         n = len(intervals)
         if n<=1: return n
         heap = []
+        
         for start, end in sorted(intervals):
             if heap and start >= heap[0]:
                 heapq.heappushpop(heap, end)
@@ -49,4 +53,4 @@ class Solution:
         return len(heap)
 
         
-        """
+        
