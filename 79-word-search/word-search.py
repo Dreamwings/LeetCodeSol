@@ -27,7 +27,7 @@ class Solution:
         
         for i in range(m):
             for j in range(n):
-                if board[i][j] == word[0] and dfs(0, i, j):
+                if dfs(0, i, j):
                     return True
         
         return False
