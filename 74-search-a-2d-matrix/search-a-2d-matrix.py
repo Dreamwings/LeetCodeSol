@@ -2,6 +2,8 @@ class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         
         ## S1: Binary Search
+        ## T: O(log(MN))
+        ## S: O(1)
         
         r, c = len(matrix), len(matrix[0])
         lo, hi = 0, r * c - 1
