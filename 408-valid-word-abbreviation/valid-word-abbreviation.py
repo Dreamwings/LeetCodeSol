@@ -6,7 +6,8 @@ class Solution:
         ## S: O(1)
 
         i, j = len(word) - 1, len(abbr) - 1
-        m, prev = 1, None # m is a multiplier, prev is to check if first digit is 0
+        m, prev = 1, None 
+        # m is a digit pos multiplier, prev is to check if first digit is 0
         
         while i >= 0 and j >= 0:
             x, y = word[i], abbr[j]
