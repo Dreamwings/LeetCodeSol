@@ -5,10 +5,11 @@ class Solution:
         ## T: O(N)
         ## S: O(1)
 
-        i, j, m, prev = len(word), len(abbr), 1, None
+        i, j = len(word) - 1, len(abbr) - 1
+        m, prev = 1, None # m is a multiplier
         
-        while i > 0 and j > 0:
-            c1, c2 = word[i-1], abbr[j-1]
+        while i >= 0 and j >= 0:
+            c1, c2 = word[i], abbr[j]
             if c1 == c2:
                 i -= 1
                 j -= 1
@@ -23,7 +24,8 @@ class Solution:
             else: 
                 return False
         
-        return i == j == 0
+        return i == j == -1
+
 
         """
         ## S1: Two Pointers
