@@ -1,26 +1,26 @@
 class Solution:
     def validWordAbbreviation(self, word: str, abbr: str) -> bool:
         
-        ## S2: Two Pointers (No nested Loop)
+        ## S2: Two Pointers (No nested Loop, from right to left)
         ## T: O(N)
         ## S: O(1)
 
         i, j = len(word) - 1, len(abbr) - 1
-        m, prev = 1, None # m is a multiplier
+        m, prev = 1, None # m is a multiplier, prev is to check if first digit is 0
         
         while i >= 0 and j >= 0:
-            c1, c2 = word[i], abbr[j]
-            if c1 == c2:
+            x, y = word[i], abbr[j]
+            if x == y:
                 i -= 1
                 j -= 1
                 m = 1
                 if prev == 0: 
                     return False
-            elif c2.isdigit():
-                i -= int(c2) * m
+            elif y.isdigit():
+                i -= int(y) * m
                 j -= 1
                 m *= 10
-                prev = int(c2)
+                prev = int(y)
             else: 
                 return False
         
