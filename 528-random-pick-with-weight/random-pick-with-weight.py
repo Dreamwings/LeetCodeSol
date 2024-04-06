@@ -1,23 +1,16 @@
 class Solution(object):
 
-    def __init__(self, w):
-        """
-        :type w: List[int]
-        """
+    def __init__(self, w: List[int]):
         for i in range(1, len(w)):
             w[i] += w[i-1]
         
-        self.w = w[:]
-        self.n = len(w)
+        self.w = w
+        self.n = len(w) # Only for Solution 2
 
-    def pickIndex(self):
-        """
-        :rtype: int
-        """
+    def pickIndex(self) -> int:
         from random import randint
         from bisect import bisect_left
-        
-        
+                
         ## Solution 1:
         x = randint(1, self.w[-1])
         return bisect_left(self.w, x)
