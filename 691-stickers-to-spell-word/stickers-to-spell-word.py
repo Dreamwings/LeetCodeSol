@@ -1,6 +1,6 @@
 class Solution:
     def minStickers(self, stickers: List[str], target: str) -> int:
-        
+        """
         ## S4: DFS
         ## T: O(M* 2^N)
 
@@ -26,29 +26,29 @@ class Solution:
             return self.map[target]
 
         return dfs(target)
-        
         """
+        
         ## S3: DFS with Memory
 
         @lru_cache(None)
         def dfs(target):
             if not target: return 0
-            tCtr, res = Counter(target), inf
-            mn = min(tuple(tCtr), key= lambda x: tCtr[x] )
+            t_cnt, res = Counter(target), inf
+            mn = min(tuple(t_cnt), key= lambda x: t_cnt[x] )
 
-            for sCtr in sCtrs: 
-                if sCtr[mn] == 0: continue 
-                nxt = dfs(''.join((tCtr-sCtr).elements()))
+            for s_cnt in s_counters: 
+                if s_cnt[mn] == 0: continue 
+                nxt = dfs(''.join((t_cnt - s_cnt).elements()))
                 
                 if nxt != -1: res = min(res, 1 + nxt)
             
             return -1 if res == inf else res
 
-        sCtrs = list(filter(lambda s: bool(set(s) & set(target)), map(Counter, stickers)))
+        s_counters = list(filter(lambda s: bool(set(s) & set(target)), map(Counter, stickers)))
         
         return dfs(target)
 
-        
+        """
         ## S2: DP
         ## T: O(2^N * M * L) 
         ## S: O(2^N)
