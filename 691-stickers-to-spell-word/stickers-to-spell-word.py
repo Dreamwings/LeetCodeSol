@@ -1,7 +1,54 @@
 class Solution:
     def minStickers(self, stickers: List[str], target: str) -> int:
         
+        ## S4: DFS
+        ## T: O(M* 2^N)
+
+        stickers = [collections.Counter(s) for s in stickers if set(s) & set(target)]
+        self.map = {}
+
+        def dfs(target):
+            if not target: 
+                return 0
+            if target in self.map: 
+                return self.map[target]
+
+            cnt, res = collections.Counter(target), float('inf')
+
+            for c in stickers: # traverse the stickers to get new target
+                if c[target[0]] == 0: 
+                    # we can make sure the 1st letter will be removed to reduce the time complexity
+                    continue 
+                nxt = dfs(''.join([s * t for (s, t) in (cnt - c).items()]))
+                if nxt != -1: 
+                    res = min(res, 1 + nxt)
+            self.map[target] = -1 if res == float('inf') else res
+            return self.map[target]
+
+        return dfs(target)
+        
         """
+        ## S3: DFS with Memory
+
+        @lru_cache(None)
+        def dfs(target):
+            if not target: return 0
+            tCtr, res = Counter(target), inf
+            mn = min(tuple(tCtr), key= lambda x: tCtr[x] )
+
+            for sCtr in sCtrs: 
+                if sCtr[mn] == 0: continue 
+                nxt = dfs(''.join((tCtr-sCtr).elements()))
+                
+                if nxt != -1: res = min(res, 1 + nxt)
+            
+            return -1 if res == inf else res
+
+        sCtrs = list(filter(lambda s: bool(set(s) & set(target)), map(Counter, stickers)))
+        
+        return dfs(target)
+
+        
         ## S2: DP
         ## T: O(2^N * M * L) 
         ## S: O(2^N)
@@ -72,23 +119,4 @@ class Solution:
         return -1
         
         """
-        ## S3: DFS with Memory
-
-        @lru_cache(None)
-        def dfs(target):
-            if not target: return 0
-            tCtr, res = Counter(target), inf
-            mn = min(tuple(tCtr), key= lambda x: tCtr[x] )
-
-            for sCtr in sCtrs: 
-                if sCtr[mn] == 0: continue 
-                nxt = dfs(''.join((tCtr-sCtr).elements()))
-                
-                if nxt != -1: res = min(res, 1 + nxt)
-            
-            return -1 if res == inf else res
-
-        sCtrs = list(filter(lambda s: bool(set(s) & set(target)), map(Counter, stickers)))
-        
-        return dfs(target)
         
