@@ -1,19 +1,21 @@
 class Solution:
     def minStickers(self, stickers: List[str], target: str) -> int:
+        
+        from collections import Counter
 
-        ## S4: DFS
+        ## S4: DFS + Memory
         ## T: O(M* 2^N)
 
-        stickers = [collections.Counter(s) for s in stickers if set(s) & set(target)]
-        self.map = {}
+        stickers = [Counter(s) for s in stickers if set(s) & set(target)]
+        self.map = {} # Memory
 
         def dfs(target):
             if not target: 
                 return 0
-            if target in self.map: 
+            if target in self.map: # check if target in memory
                 return self.map[target]
 
-            cnt, res = collections.Counter(target), float('inf')
+            cnt, res = Counter(target), float('inf')
 
             for c in stickers: # traverse the stickers to get new target
                 if c[target[0]] == 0: 
@@ -49,7 +51,6 @@ class Solution:
         
         return dfs(target)
 
-        """
         
         ## S2: DP
         ## T: O(2^N * M * L) 
