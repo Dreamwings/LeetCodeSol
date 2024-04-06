@@ -7,7 +7,7 @@ class Solution:
         ## S: O(2^N)
 
         n = len(target)
-        dp = [-1] * (1 << n)
+        dp = [-1] * (1 << n) # 2^n states
         dp[0] = 0
         for k in range(1 << n):
             if dp[k] == -1: continue
