@@ -8,7 +8,7 @@ class SparseVector:
         if len(a) > len(b):
             a, b = b, a
         # return sum(a[i] * b[i] for i in a if i in b)
-        return sum(a.get(i, 0) * b[i] for i in b)
+        return sum(a[i] * b.get(i, 0) for i in a)
 
 # Your SparseVector object will be instantiated and called as such:
 # v1 = SparseVector(nums1)
