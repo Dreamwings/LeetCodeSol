@@ -1,6 +1,6 @@
 class Solution:
     def minStickers(self, stickers: List[str], target: str) -> int:
-        """
+
         ## S4: DFS
         ## T: O(M* 2^N)
 
@@ -26,6 +26,7 @@ class Solution:
             return self.map[target]
 
         return dfs(target)
+        
         """
         
         ## S3: DFS with Memory
@@ -49,6 +50,7 @@ class Solution:
         return dfs(target)
 
         """
+        
         ## S2: DP
         ## T: O(2^N * M * L) 
         ## S: O(2^N)
