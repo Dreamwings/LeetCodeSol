@@ -1,7 +1,7 @@
 class Solution:
     def minStickers(self, stickers: List[str], target: str) -> int:
         
-        
+        """
         ## S2: DP
         ## T: O(2^N * M * L) 
         ## S: O(2^N)
@@ -22,7 +22,7 @@ class Solution:
                 if dp[now] == -1 or dp[now] > dp[k] + 1:
                     dp[now] = dp[k] + 1
         return dp[-1]
-        """
+        
         
         ## S1: BFS from AlgoMonster
         ## T: O(2^N * M * L * K) 
@@ -71,7 +71,7 @@ class Solution:
         # If target cannot be reached return -1 indicating not possible.
         return -1
         
-
+        """
         ## S3: DFS with Memory
 
         @lru_cache(None)
@@ -91,4 +91,4 @@ class Solution:
         sCtrs = list(filter(lambda s: bool(set(s) & set(target)), map(Counter, stickers)))
         
         return dfs(target)
-        """
+        
