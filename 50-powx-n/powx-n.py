@@ -1,8 +1,6 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
 
-        """   
-
         ## S2
 
         def quick_power(base, exp):
@@ -43,4 +41,6 @@ class Solution:
             x = x * x
             
         return p
+
+        """   
         
