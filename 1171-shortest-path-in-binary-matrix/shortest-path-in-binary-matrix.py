@@ -1,11 +1,11 @@
 class Solution:
     def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
-        """
 
         ## S3: A* Algorithm 
         ## https://theory.stanford.edu/~amitp/GameProgramming/AStarComparison.html
         ## https://www.redblobgames.com/pathfinding/a-star/introduction.html
-        ## 
+        ## T: O(N^2 * log(N^2))
+        ## S: O(N^2)
         
         from heapq import heappush, heappop
 
@@ -13,7 +13,7 @@ class Solution:
         if grid[0][0] == 1: return -1
         d = [(0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
 
-        def get_neighbours(x, y):
+        def get_neighbors(x, y):
             for dx, dy in d:
                 i, j = x + dx, y + dy
                 if not(0 <= i < n and 0 <= j < n):
@@ -24,7 +24,7 @@ class Solution:
 
         # Helper function for the A* heuristic.
         def best_estimate(row, col):
-            return max(max_row - row, max_col - col)
+            return max(n - 1 - row, n - 1 - col)
 
         # Set up the A* search.
         visited = set()
@@ -41,13 +41,17 @@ class Solution:
             
             visited.add(cell)
 
-            for neighbor in get_neighbours(*cell):
+            for neighbor in get_neighbors(*cell):
                 # The check here isn't necessary for correctness, but it
                 # leads to a substantial performance gain.
-                if neighbour in visited:
+                if neighbor in visited:
                     continue
+                new_est = best_estimate(*neighbor) + dist + 1
+                heappush(hq, (new_est, dist + 1, neighbor))
 
+        return -1
 
+        """
 
         ## S1: BFS
         ## T: O(N^2)
