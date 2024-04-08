@@ -1,6 +1,33 @@
 class Solution:
     def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
 
+        ## S2: BFS (Time Limit Exceeded)
+        ## T: O(N^2)
+        ## S: O(N^2)
+        
+        n = len(grid)
+        if grid[0][0] == 1: return -1
+
+        q = collections.deque()
+        q.append((0, 0, 1))
+        d = [(0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+        grid[0][0] = 1 # Mark this cell as visited using 1
+
+        while q:
+            x, y, steps = q.popleft()
+            if x == y == n - 1:
+                return steps
+            
+            for dx, dy in d:
+                i, j = x + dx, y + dy
+                if 0 <= i < n and 0 <= j < n and grid[i][j] == 0:
+                    q.append((i, j, steps + 1))
+                    grid[i][j] = 1 # Mark this cell as visited using 1
+
+        return -1
+
+        """
+
         ## S3: A* Algorithm 
         ## https://theory.stanford.edu/~amitp/GameProgramming/AStarComparison.html
         ## https://www.redblobgames.com/pathfinding/a-star/introduction.html
@@ -51,7 +78,6 @@ class Solution:
 
         return -1
 
-        """
 
         ## S1: BFS
         ## T: O(N^2)
@@ -82,29 +108,3 @@ class Solution:
         return -1            
         
         """
-
-        ## S2: BFS (Time Limit Exceeded)
-        ## T: O(N^2)
-        ## S: O(N^2)
-        
-        n = len(grid)
-        if grid[0][0] == 1: return -1
-
-        q = collections.deque()
-        q.append((0, 0, 1))
-        d = [(0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
-        grid[0][0] = 1 # Mark this cell as visited using 1
-
-        while q:
-            x, y, steps = q.popleft()
-            if x == y == n - 1:
-                return steps
-            
-            for dx, dy in d:
-                i, j = x + dx, y + dy
-                if 0 <= i < n and 0 <= j < n and grid[i][j] == 0:
-                    q.append((i, j, steps + 1))
-                    grid[i][j] = 1 # Mark this cell as visited using 1
-
-        return -1
-
