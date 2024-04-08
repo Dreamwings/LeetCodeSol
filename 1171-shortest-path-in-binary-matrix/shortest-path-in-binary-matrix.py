@@ -1,5 +1,53 @@
 class Solution:
     def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
+        """
+
+        ## S3: A* Algorithm 
+        ## https://theory.stanford.edu/~amitp/GameProgramming/AStarComparison.html
+        ## https://www.redblobgames.com/pathfinding/a-star/introduction.html
+        ## 
+        
+        from heapq import heappush, heappop
+
+        n = len(grid)
+        if grid[0][0] == 1: return -1
+        d = [(0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+
+        def get_neighbours(x, y):
+            for dx, dy in d:
+                i, j = x + dx, y + dy
+                if not(0 <= i < n and 0 <= j < n):
+                    continue
+                if grid[i][j] != 0:
+                    continue
+                yield (i, j)
+
+        # Helper function for the A* heuristic.
+        def best_estimate(row, col):
+            return max(max_row - row, max_col - col)
+
+        # Set up the A* search.
+        visited = set()
+        # Entries on the priority queue are of the form
+        # (total distance estimate, distance so far, (cell row, cell col))
+        hq = [(1 + best_estimate(0, 0), 1, (0, 0))]
+
+        while hq:
+            est, dist, cell = heappop(hq)
+            if cell in visited:
+                continue
+            if cell == (n - 1, n - 1):
+                return dist
+            
+            visited.add(cell)
+
+            for neighbor in get_neighbours(*cell):
+                # The check here isn't necessary for correctness, but it
+                # leads to a substantial performance gain.
+                if neighbour in visited:
+                    continue
+
+
 
         ## S1: BFS
         ## T: O(N^2)
@@ -10,15 +58,16 @@ class Solution:
         
         q = [(0, 0)]
         grid[0][0] = 1
-        res = 0
+        steps = 0
         d = [(0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
         
         while q:
             nxt = []
-            res += 1
+            steps += 1
             for x, y in q:
-                if x == y == n-1:
-                    return res
+                if x == y == n - 1:
+                    return steps
+
                 for dx, dy in d:
                     i, j = x + dx, y + dy
                     if 0 <= i < n and 0 <= j < n and grid[i][j] == 0:
@@ -40,19 +89,18 @@ class Solution:
         q = collections.deque()
         q.append((0, 0, 1))
         d = [(0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+        grid[0][0] = 1 # Mark this cell as visited using 1
 
         while q:
             x, y, steps = q.popleft()
             if x == y == n - 1:
                 return steps
             
-            grid[x][y] = 1 # Mark this cell as visited using 1
-
             for dx, dy in d:
                 i, j = x + dx, y + dy
                 if 0 <= i < n and 0 <= j < n and grid[i][j] == 0:
                     q.append((i, j, steps + 1))
+                    grid[i][j] = 1 # Mark this cell as visited using 1
 
         return -1
 
-        """
