@@ -1,7 +1,7 @@
 class Solution:
     def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
 
-        ## S2: BFS (Time Limit Exceeded)
+        ## S2: BFS
         ## T: O(N^2)
         ## S: O(N^2)
         
