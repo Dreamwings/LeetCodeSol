@@ -11,7 +11,10 @@ class Solution:
         q = collections.deque()
         q.append((0, 0, 1))
         d = [(0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
-        grid[0][0] = 1 # Mark this cell as visited using 1
+        # grid[0][0] = 1 # Mark this cell as visited using 1
+        # Using a visited set instead of modifying the input in-place, reason:
+        # 1) multithreading, 2) the input need to be reused by another thread
+        visited = set([(0, 0)])
 
         while q:
             x, y, steps = q.popleft()
@@ -21,8 +24,11 @@ class Solution:
             for dx, dy in d:
                 i, j = x + dx, y + dy
                 if 0 <= i < n and 0 <= j < n and grid[i][j] == 0:
+                    if (i, j) in visited:
+                        continue
                     q.append((i, j, steps + 1))
-                    grid[i][j] = 1 # Mark this cell as visited using 1
+                    # grid[i][j] = 1 # Mark this cell as visited using 1
+                    visited.add(((i, j)))
 
         return -1
 
