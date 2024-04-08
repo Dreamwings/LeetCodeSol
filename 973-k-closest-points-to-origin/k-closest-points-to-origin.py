@@ -3,19 +3,19 @@ class Solution:
 
         from heapq import nsmallest, heappush, heappop
 
-        ## S5: Optimal, Divide and Conquer
+        ## S5: Optimal, Quick Select Sorting, Divide and Conquer
         ## Time: O(N) on avg, O(N^2) for worst case
         ## Space: O(N)
 
-        dist = lambda x, y: x**2 + y**2
+        compute_dist = lambda x, y: x**2 + y**2
 
-        d = [(dist(i, j), [i, j]) for i, j in points] # O(N)
+        dist = [(compute_dist(x, y), [x, y]) for x, y in points] # O(N)
 
-        def quick_select_sort(d, K):
-            pivot = random.choice(d)[0]
+        def quick_select_sort(dist, K):
+            pivot = random.choice(dist)[0]
             small, equal, big = [], [], []
 
-            for v in d:
+            for v in dist:
                 if v[0] < pivot:
                     small.append(v)
                 elif v[0] == pivot:
@@ -31,7 +31,7 @@ class Solution:
             else:
                 return small + equal
 
-        k_smallest = quick_select_sort(d, K)
+        k_smallest = quick_select_sort(dist, K)
 
         return [y for x, y in k_smallest]
 
