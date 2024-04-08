@@ -19,7 +19,8 @@ class Solution:
         if n >= 0: 
             return quick_power(x, n) 
         else:
-            return 1 / quick_power(x, -n)
+            # return 1 / quick_power(x, -n)
+            return quick_power(1/x, -n) 
 
         """
                 
