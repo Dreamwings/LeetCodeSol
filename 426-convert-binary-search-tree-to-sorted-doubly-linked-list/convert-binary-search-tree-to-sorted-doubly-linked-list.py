@@ -14,9 +14,12 @@ class Solution:
         ## T: O(N)
         ## S: O(logN) for avg, O(N) for worst
 
-        if not root: return None
-
+        if not root:
+            return None
+        
         def dfs(node):
+            # Do recursive traversal of the subtree whose root is "node".
+            # Return the head and tail of Doubled Linked List after the subtree is converted
             head = tail = node
 
             if node.left:
@@ -24,7 +27,7 @@ class Solution:
                 l_tail.right = node
                 node.left = l_tail
                 head = l_head
-
+            
             if node.right:
                 r_head, r_tail = dfs(node.right)
                 r_head.left = node
@@ -32,10 +35,11 @@ class Solution:
                 tail = r_tail
             
             head.left, tail.right = tail, head
+            
             return head, tail
-        
-        head, tail = dfs(root)
-        return head
+
+        return dfs(root)[0]
+
         """
 
         ## S2: DFS
