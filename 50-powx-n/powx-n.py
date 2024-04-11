@@ -2,6 +2,8 @@ class Solution:
     def myPow(self, x: float, n: int) -> float:
 
         ## S2
+        ## T: O(logN)
+        ## S: O(1)
 
         def quick_power(base, exp):
             res = 1.0
