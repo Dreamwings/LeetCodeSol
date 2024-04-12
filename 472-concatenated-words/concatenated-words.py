@@ -1,24 +1,6 @@
-class Trie:
-    def __init__(self):
-        self.children = [None] * 26  # Initialize the trie nodes for each letter of the alphabet
-        self.is_end_of_word = False   # Boolean to check if the node is the end of a word
-
-    def insert(self, word):
-        node = self
-        for char in word:
-            index = ord(char) - ord('a')  # Calculate the alphabetical index
-            # If the character doesn't have an associated Trie node, create it
-            if node.children[index] is None:
-                node.children[index] = Trie()
-            # Move to the child node associated with the character
-            node = node.children[index]
-        # Mark the last node as the end of a word
-        node.is_end_of_word = True
-
-
 class Solution:
     def findAllConcatenatedWordsInADict(self, words: List[str]) -> List[str]:
-        """
+        
         ## S2: DFS with Memory (Time Limit Exceeded?)
         ## T: O(N * M^3), N = len(words), M is the length of the longest word
         ## S: O(M * N)
@@ -48,11 +30,31 @@ class Solution:
                 res.append(w)
         return res
         
-        """
+        
 
         ## S1: DP
         
         ## S3: Trie + DFS (See AlgoMonster)
+
+class Trie:
+    def __init__(self):
+        self.children = [None] * 26  # Initialize the trie nodes for each letter of the alphabet
+        self.is_end_of_word = False   # Boolean to check if the node is the end of a word
+
+    def insert(self, word):
+        node = self
+        for char in word:
+            index = ord(char) - ord('a')  # Calculate the alphabetical index
+            # If the character doesn't have an associated Trie node, create it
+            if node.children[index] is None:
+                node.children[index] = Trie()
+            # Move to the child node associated with the character
+            node = node.children[index]
+        # Mark the last node as the end of a word
+        node.is_end_of_word = True
+
+class Solution:
+    def findAllConcatenatedWordsInADict(self, words: List[str]) -> List[str]:
 
         def dfs(word):
             if not word:  # If the word is empty, we've found a valid concatenation
