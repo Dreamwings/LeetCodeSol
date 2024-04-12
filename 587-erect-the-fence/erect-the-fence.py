@@ -1,6 +1,6 @@
 class Solution:
     def outerTrees(self, trees: List[List[int]]) -> List[List[int]]:
-
+        
         ## S2: Graham Scan
         ## https://leetcode.com/problems/erect-the-fence/solutions/1442266/a-detailed-explanation-with-diagrams-graham-scan/
         ## T: O(NlogN)
@@ -37,23 +37,23 @@ class Solution:
         # Function to calculate the cross product of vectors AB and BC. 
         # This helps determine the orientation of the triplet (A, B, C).
         def cross_product(A_idx, B_idx, C_idx):
-            A, B, C = points[A_idx], points[B_idx], points[C_idx]
+            A, B, C = trees[A_idx], trees[B_idx], trees[C_idx]
             return (B[0] - A[0]) * (C[1] - B[1]) - (B[1] - A[1]) * (C[0] - B[0])
 
-        n = len(points)
-        # If there are less than 4 points, all of them constitute the convex hull.
+        n = len(trees)
+        # If there are less than 4 trees, all of them constitute the convex hull.
         if n < 4:
-            return points
+            return trees
 
-        # Sort points by their x-coordinate, and in case of a tie, by their y-coordinate.
-        points.sort()
-        # Initialize a visited array to track points that are part of the convex hull.
+        # Sort trees by their x-coordinate, and in case of a tie, by their y-coordinate.
+        trees.sort()
+        # Initialize a visited array to track trees that are part of the convex hull.
         visited = [False] * n
-        # Initialize a stack to maintain the points forming the hull.
+        # Initialize a stack to maintain the trees forming the hull.
         stack = [0]
         # Construct the lower hull by moving left to right.
         for i in range(1, n):
-            # While there are at least two points and the sequence forms a non-left turn, remove the middle point.
+            # While there are at least two trees and the sequence forms a non-left turn, remove the middle point.
             while len(stack) > 1 and cross_product(stack[-2], stack[-1], i) < 0:
                 visited[stack.pop()] = False
             visited[i] = True
@@ -73,7 +73,7 @@ class Solution:
       
         # Remove the last point because it's the same as the first one in the stack.
         stack.pop()
-        # Construct and return the list of points that form the outer trees (convex hull).
-        return [points[i] for i in stack]
+        # Construct and return the list of trees that form the outer trees (convex hull).
+        return [trees[i] for i in stack]
 
         """
