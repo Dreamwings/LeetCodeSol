@@ -3,6 +3,8 @@ class Solution:
         from heapq import heapify, heappush, heappop
         
         ## S2: Heap
+        ## T: O(N*logM), M = len(nums), N is the total number of all values from all the lists
+        ## S: O(M)
 
         # Create a heap and initialize it with the first element from each of the k lists.
         hp = [(sub_list[0], i, 0) for i, sub_list in enumerate(nums)]
