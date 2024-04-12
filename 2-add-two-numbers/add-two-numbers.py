@@ -7,6 +7,8 @@ class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         
         ## S2:
+        ## T: O(max(M, N))
+        ## S: O(1)
 
         c = 0
         dummy = ListNode(-1)
@@ -17,7 +19,6 @@ class Solution:
             c, s = s // 10, s % 10
             p.next = ListNode(s)
             p = p.next
-            s = 0
             l1 = l1.next if l1 else None
             l2 = l2.next if l2 else None
 
