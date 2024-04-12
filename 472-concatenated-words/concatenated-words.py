@@ -35,6 +35,8 @@ class Solution:
         ## S1: DP
         
         ## S3: Trie + DFS (See AlgoMonster)
+        ## T: O(N * log(N) + N * L^2), N = len(words), L is the length of the longest word
+        ## S: O(T + N)
 
 class Trie:
     def __init__(self):
