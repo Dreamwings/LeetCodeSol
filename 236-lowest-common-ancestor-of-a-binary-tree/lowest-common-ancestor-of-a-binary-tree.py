@@ -12,9 +12,7 @@ class Solution:
         ## T: O(N)
         ## S: O(H)
         
-        if not root: 
-            return None
-        if p == root or q == root: 
+        if root in {None, p, q}: # Check 3 corner cases
             return root
         
         l = self.lowestCommonAncestor(root.left, p, q)
@@ -22,11 +20,13 @@ class Solution:
         
         if l and r: 
             return root
-        else: return l or r
+        return l or r  # Otherwise
         
-        """
-        
+
+      
         ## S2: DFS
+        ## T: O(N)
+        ## S: O(H)
 
         def get_lca(node: Optional[TreeNode]) -> Optional[TreeNode]:
             if not node: 
@@ -40,7 +40,11 @@ class Solution:
 
         return get_lca(root)
 
+
+
         ## S3: DFS
+        ## T: O(N)
+        ## S: O(N)
         
         parents = {}
         
@@ -61,5 +65,3 @@ class Solution:
         while q:
             if q in seen: return q
             q = parents[q]
-        
-        """
