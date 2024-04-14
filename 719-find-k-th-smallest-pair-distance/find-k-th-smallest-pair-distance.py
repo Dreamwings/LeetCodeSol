@@ -5,11 +5,11 @@ class Solution:
         ## T: O(NlogN + NlogM), M = max_dist
         ## S: O(1)
 
-        # Count the case there are less than k dist
-        def less_than(x: int) -> int:
+        # Count the case there are less than the guess dist
+        def less_than(dist: int) -> int:
             i, pairs = 0, 0
             for j in range(len(nums)):
-                while nums[j] - nums[i] > x:
+                while nums[j] - nums[i] > dist:
                     i += 1
                 pairs += j - i
             return pairs
