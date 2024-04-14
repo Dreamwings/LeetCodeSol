@@ -9,7 +9,6 @@ class Solution:
         pre_op, pre_v, v, res = "+", 0, 0, 0
 
         for i, c in enumerate(s):
-            print(pre_v, v, res)
             if c.isdigit():
                 v = 10 * v + int(c)
             elif c in "+-*/":
