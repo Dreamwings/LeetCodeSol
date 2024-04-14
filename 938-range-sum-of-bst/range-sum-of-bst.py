@@ -11,22 +11,21 @@ class Solution:
         ## T: O(N)
         ## S: O(H)
         def dfs(node):
-            if not node:
-                return
+            if not node: return
+
             if low <= node.val <= high:
                 self.total_sum += node.val
+            if node.val > low:
                 dfs(node.left)
+            if node.val < high:
                 dfs(node.right)
-            elif node.val < low:
-                dfs(node.right)
-            elif node.val > high:
-                dfs(node.left)
 
         self.total_sum = 0
         dfs(root)
         return self.total_sum
 
-        """
+
+
         ## S2:  Iterative BFS
         ## Time: O(N)
         ## Space: O(N)
@@ -52,7 +51,7 @@ class Solution:
         
         ## S1: Recursive DFS
         ## Time: O(N)
-        ## Space: O(H)
+        ## Space: O(N)
         
         res = 0
         if not root: return res
@@ -65,6 +64,21 @@ class Solution:
         
         return res + l + r
         
-        """
-        
-     
+
+
+        ## S4:  Iterative DFS
+        ## Time: O(N)
+        ## Space: O(N)
+ 
+        ans = 0
+        stack = [root]
+        while stack:
+            node = stack.pop()
+            if node:
+                if low <= node.val <= high:
+                    ans += node.val
+                if low < node.val:
+                    stack.append(node.left)
+                if node.val < high:
+                    stack.append(node.right)
+        return ans
