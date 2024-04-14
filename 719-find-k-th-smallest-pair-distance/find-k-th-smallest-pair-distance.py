@@ -5,29 +5,31 @@ class Solution:
         ## T: O(NlogN + NlogM), M = max_dist
         ## S: O(1)
 
-        # Count the case there are less than the guess dist
-        def less_than(dist: int) -> int:
-            i, pairs = 0, 0
+        # Return if there are k or more pairs with distance <= guess
+        def possible(guess_dist):
+            i = count = 0            
             for j in range(len(nums)):
-                while nums[j] - nums[i] > dist:
+                # If the distance calculated from j-i is less than the guess, decrease the guess window
+                while nums[j] - nums[i] > guess_dist:
                     i += 1
-                pairs += j - i
-            return pairs
+                # Count all places between j and i
+                count += j - i
+            return count >= k
 
-            nums.sort()
-            low, high = 0, nums[-1] - nums[0]
-            while low < high:
-                mid = low + (high - low) // 2
-                # If 'mid' did not produce enouh results, let's increase the guess space 
-                if less_than(mid) < k:
-                    low = mid + 1
-                # If 'mid' did not produce k or more results, it's the upper bound
-                else:
-                    high = mid
-            return low
+        nums.sort()
+        low, high = 0, nums[-1] - nums[0]
+        while low < high:
+            mid = low + (high - low) // 2
+            # If 'mid' produces k or more results, it's the upper bound
+            if possible(mid):
+                high = mid
+            # If 'mid' did not produce enouh results, let's increase the guess space 
+            else:
+                low = mid + 1
+        return low
 
 
-
+        
 
         ## S1: Binary Search
         ## T: O(NlogN + NlogM), M = max_dist
@@ -58,3 +60,5 @@ class Solution:
         min_dist = bisect_left(range(max_dist + 1), k, key=count_pairs_with_max_distance)
       
         return min_dist
+
+        
