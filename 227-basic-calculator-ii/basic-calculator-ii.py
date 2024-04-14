@@ -1,6 +1,36 @@
 class Solution:
     def calculate(self, s: str) -> int:
 
+        ## S3: No Stack
+        ## T: O(N)
+        ## S: O(1)
+
+        pre_op, pre_v, v, res = "+", 0, 0, 0
+
+        for i, c in enumerate(s):
+            if c.isdigit():
+                v = 10 * v + int(c)
+                
+            if not c.isdigit() and c != " " or i == len(s) - 1:
+                if pre_op == "+":
+                    res += pre_v
+                    pre_v = v
+                elif pre_op == "-":
+                    res += pre_v
+                    pre_v = -v
+                elif pre_op == "*":
+                    pre_v = pre_v * v
+                elif pre_op == "/":
+                    pre_v = int(pre_v / v)
+                
+                v, pre_op = 0, c
+        
+        return res + pre_v
+
+
+
+
+
         ## S2: No Stack
         ## T: O(N)
         ## S: O(1)
@@ -8,7 +38,7 @@ class Solution:
         s += "+"
         pre_op, pre_v, v, res = "+", 0, 0, 0
 
-        for i, c in enumerate(s):
+        for c in s:
             if c.isdigit():
                 v = 10 * v + int(c)
             elif c in "+-*/":
