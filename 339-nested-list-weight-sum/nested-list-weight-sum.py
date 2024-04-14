@@ -44,7 +44,7 @@
 class Solution:
     def depthSum(self, nestedList: List[NestedInteger]) -> int:
         
-        ## S1: Iterative DFS
+        ## S1: Iterative BFS
         ## T: O(N)
         ## S: O(N)
 
@@ -62,11 +62,13 @@ class Solution:
             nestedList = nxt
         
         return res
-        """
+        
+        
 
         ## S2: Recursive DFS
         ## T: O(N)
         ## S: O(D), D is max depth
+
         def dfs(nested_list, depth): 
             summ = 0 # initialization of the summ
             for x in nested_list:
@@ -79,5 +81,4 @@ class Solution:
             return summ
     
         return dfs(nestedList, 1)   # start with depth=1
-        """
         
