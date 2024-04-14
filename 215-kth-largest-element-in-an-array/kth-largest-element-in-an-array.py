@@ -29,14 +29,18 @@ class Solution:
             return self.findKthLargest(st, k - GL - EL)
             
 
-        """
+        
         ## Solution 1:
         ## Time: O(NlogK)
+        ## Space: O(N)
+        
         return nlargest(k, nums)[-1]
         
         
         ## Solution 2:
         ## Time: O(NlogK)
+        ## Space: O(N)
+
         q = []
 
         for x in nums:
@@ -45,9 +49,12 @@ class Solution:
                 heappop(q)
 
         return q[0]
+
+
         
         ## S5: Counting Sort
         ## https://leetcode.com/problems/kth-largest-element-in-an-array/solutions/4760057/counting-sort-easy-and-optimised-python/
+
 
 
         ## S4: Quick Select (Iterative)
@@ -77,4 +84,4 @@ class Solution:
         n_smaller = len(nums)-k
         quick_select()
         return nums[n_smaller]
-        """
+        
