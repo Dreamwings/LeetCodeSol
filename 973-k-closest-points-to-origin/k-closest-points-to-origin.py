@@ -3,39 +3,41 @@ class Solution:
 
         from heapq import nsmallest, heappush, heappop
 
-        ## S5: Optimal, Quick Select Sorting, Divide and Conquer
+        ## S5: Quick Select Sorting, Divide and Conquer (Optimal)
         ## Time: O(N) on avg, O(N^2) for worst case
         ## Space: O(N)
 
-        compute_dist = lambda x, y: x**2 + y**2
+        dist_sq = lambda x, y: x*x + y*y
 
-        dist = [(compute_dist(x, y), [x, y]) for x, y in points] # O(N)
+        # compute distance square for all points
+        dist_xy = [(dist_sq(x, y), x, y) for x, y in points]  # O(N)
 
-        def quick_select_sort(dist, K):
-            pivot = random.choice(dist)[0]
-            small, equal, big = [], [], []
+        def quick_select_sort(dist_xy, K):
+            pivot = random.choice(dist_xy)[0]  # Choose a dist_xy randomly
+            # Initialize 3 arrays to hold points for dist_xy < pivot, dist_xy == pivot, dist_xy > pivot respectively
+            sm, eq, gt = [], [], []
 
-            for v in dist:
+            for v in dist_xy:  # v is (distance, x, y)
                 if v[0] < pivot:
-                    small.append(v)
-                elif v[0] == pivot:
-                    equal.append(v)
+                    sm.append(v)
+                elif v[0] > pivot:
+                    gt.append(v)
                 else:
-                    big.append(v)
-            
-            ls, le = len(small), len(equal)
-            if K <= ls:
-                return quick_select_sort(small, K)
-            elif ls + le < K:
-                return small + equal + quick_select_sort(big, K - ls - le)
+                    eq.append(v)
+
+            len_sm, len_eq = len(sm), len(eq)
+            if K <= len_sm:  # Note here "=" is important
+                return quick_select_sort(sm, K)
+            elif K > len_sm + len_eq:
+                return sm + eq + quick_select_sort(gt, K - len_sm - len_eq)
             else:
-                return small + equal
+                return sm + eq
 
-        k_smallest = quick_select_sort(dist, K)
+        k_smallest = quick_select_sort(dist_xy, K)
 
-        return [y for x, y in k_smallest]
+        return [[x, y] for _, x, y in k_smallest]
 
-        """
+
 
         ## S1: Optimal
         ## Time: O(N*logK)
@@ -45,7 +47,8 @@ class Solution:
         
         return [[x, y] for d, x, y in closest]
 
-        
+
+
         ## S2: Max Heap
         ## Time: O(N*logK)
         ## Space: O(N)
@@ -60,12 +63,14 @@ class Solution:
         return [(x, y) for _, x, y in hq]
 
 
+
         ## S3: Sort
         ## Time: O(N*logN)
         ## Space: O(N)        
 
         points.sort(key=lambda point: point[0]**2 + point[1]**2)
         return points[:K]
+
 
 
         ## S4: Optimal, Divide and Conquer
@@ -115,4 +120,3 @@ class Solution:
         quick_select_sort(0, len(points) - 1, K)
         return points[:K]
 
-        """
