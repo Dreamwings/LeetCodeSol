@@ -1,6 +1,37 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
 
+        ## S5: Using **
+        
+        return x ** n
+
+        
+"""        
+        ## S4: Using Math Lib
+
+        return math.pow(x, n); 
+
+
+        ## S3: Recursive
+        ## T: O(logN)
+        ## S: O(1)
+
+        # Base case, to stop recursive calls.
+        if n == 0:
+            return 1
+        # Handle case for n < 0.
+        if n < 0:
+            return 1.0 / self.myPow(x, -1 * n)
+       
+        # Perform Binary Exponentiation.
+        # If 'n' is odd, compute 'n - 1' case and multiply result with 'x'.
+        if n % 2 == 1:
+            return x * self.myPow(x * x, (n - 1) // 2)
+        # Otherwise we calculate result by performing Binary Exponentiation on 'n'.
+        else:
+            return self.myPow(x * x, n // 2)
+
+
         ## S2
         ## T: O(logN)
         ## S: O(1)
@@ -24,9 +55,12 @@ class Solution:
             return 1 / quick_power(x, -n)
             # return quick_power(1/x, -n) 
 
-        """
+
                 
         ## S1:
+        ## T: O(logN)
+        ## S: O(1)
+
         if n == 0: return 1
         if x == 0:
             if n > 0: return 0
@@ -44,6 +78,5 @@ class Solution:
             x = x * x
             
         return p
-
-        """   
+""" 
         
