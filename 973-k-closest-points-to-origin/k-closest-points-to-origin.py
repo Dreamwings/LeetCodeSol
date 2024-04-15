@@ -14,8 +14,8 @@ class Solution:
 
         def quick_select_sort(dist_xy, K):
             pivot = random.choice(dist_xy)[0]  # Choose a dist_xy randomly
-            # Initialize 3 arrays to hold elements in dist_xy for dist_xy < pivot, 
-            # dist_xy == pivot, dist_xy > pivot respectively
+            # Initialize 3 arrays to hold elements in dist_xy for dist < pivot, 
+            # dist == pivot, dist > pivot respectively
             sm, eq, gt = [], [], []
 
             for v in dist_xy:  # v is (distance, x, y)
