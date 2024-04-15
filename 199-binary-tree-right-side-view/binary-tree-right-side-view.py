@@ -7,30 +7,9 @@
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         
-        ## S1: Recursive DFS
-        ## T: O(N)
-        ## S: O(H)
-        
-        res = []
-        if not root: return res
-        
-        res.append(root.val)
-        
-        l = self.rightSideView(root.left)
-        r = self.rightSideView(root.right)
-        
-        res += r
-        
-        ll, rl = len(l), len(r)
-        if rl < ll:
-            res += l[rl:]
-        
-        return res
-        """
-        
         ## S2: Iterative BFS
         ## T: O(N)
-        ## S: O(N)
+        ## S: O(D) ~ O(N) for worst case, D is max width of all levels
         
         res = []
         if not root: return res
@@ -51,5 +30,26 @@ class Solution:
         
         return res
         
-        """
+
+        
+        ## S1: Recursive DFS
+        ## T: O(N)
+        ## S: O(H) ~ O(N) for worst case, H is tree height
+        
+        res = []
+        if not root: return res
+        
+        res.append(root.val)
+        
+        l = self.rightSideView(root.left)
+        r = self.rightSideView(root.right)
+        
+        res += r
+        
+        ll, rl = len(l), len(r)
+        if rl < ll:
+            res += l[rl:]
+        
+        return res
+
         
