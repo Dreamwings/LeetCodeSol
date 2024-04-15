@@ -1,6 +1,37 @@
+## S2: Ordered Dictionary
+## T: O(1) for get and put
+## S: O(N)
+
 class LRUCache:
 
-    ## Solution 1: Double Linked List
+    from collections import OrderedDict
+    
+    def __init__(self, capacity: int):
+        self.n = capacity
+        self.d = OrderedDict()
+
+    def get(self, key: int) -> int:
+        if key not in self.d:
+            return -1
+        val = self.d[key]
+        del self.d[key]
+        self.d[key] = val
+        return val
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.d:
+            del self.d[key]
+        self.d[key] = value
+        if len(self.d) > self.n:
+            self.d.popitem(last=False)
+
+
+
+## S1: Double Linked List
+## T: O(1) for get and put
+## S: O(N)
+    
+class LRUCache:
 
     def __init__(self, capacity: int):
         self.n = capacity
@@ -39,33 +70,9 @@ class LRUCache:
         self.add(key, value)
         
 
-    """
-    ## Solution 2: Ordered Dictionary
 
-    from collections import OrderedDict
-    
-    def __init__(self, capacity: int):
-        self.n = capacity
-        self.d = OrderedDict()
-
-    def get(self, key: int) -> int:
-        if key not in self.d:
-            return -1
-        val = self.d[key]
-        del self.d[key]
-        self.d[key] = val
-        return val
-
-    def put(self, key: int, value: int) -> None:
-        if key in self.d:
-            del self.d[key]
-        self.d[key] = value
-        if len(self.d) > self.n:
-            self.d.popitem(last=False)
-    """
-
-    ## S3:
-    ## https://algo.monster/liteproblems/146        
+## S3:
+## https://algo.monster/liteproblems/146        
 
 
 # Your LRUCache object will be instantiated and called as such:
