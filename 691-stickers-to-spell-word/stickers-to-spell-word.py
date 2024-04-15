@@ -4,16 +4,17 @@ class Solution:
         from collections import Counter
 
         ## S4: DFS + Memory
-        ## T: O(M* 2^N)
+        ## T: O(M * 2^N)
+        ## S: O(M)
 
         stickers = [Counter(s) for s in stickers if set(s) & set(target)]
-        self.map = {} # Memory
+        self.mem = {} # Memory
 
         def dfs(target):
             if not target: 
                 return 0
-            if target in self.map: # check if target in memory
-                return self.map[target]
+            if target in self.mem: # check if target in memory
+                return self.mem[target]
 
             cnt, res = Counter(target), float('inf')
 
@@ -21,15 +22,16 @@ class Solution:
                 if c[target[0]] == 0: 
                     # we can make sure the 1st letter will be removed to reduce the time complexity
                     continue 
-                nxt = dfs(''.join([s * t for (s, t) in (cnt - c).items()]))
+                new_target = ''.join([s * t for (s, t) in (cnt - c).items()])
+                nxt = dfs(new_target)
                 if nxt != -1: 
                     res = min(res, 1 + nxt)
-            self.map[target] = -1 if res == float('inf') else res
-            return self.map[target]
+            self.mem[target] = -1 if res == float('inf') else res
+            return self.mem[target]
 
         return dfs(target)
         
-        """
+        
         
         ## S3: DFS with Memory
 
@@ -52,6 +54,7 @@ class Solution:
         return dfs(target)
 
         
+
         ## S2: DP
         ## T: O(2^N * M * L) 
         ## S: O(2^N)
@@ -73,6 +76,7 @@ class Solution:
                     dp[now] = dp[k] + 1
         return dp[-1]
         
+
         
         ## S1: BFS from AlgoMonster
         ## T: O(2^N * M * L * K) 
@@ -120,6 +124,4 @@ class Solution:
       
         # If target cannot be reached return -1 indicating not possible.
         return -1
-        
-        """
         
