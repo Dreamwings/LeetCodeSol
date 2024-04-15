@@ -35,7 +35,6 @@ class LRUCache:
 ## S3: Double Linked List
 ## T: O(1) for get and put
 ## S: O(N)
-## https://algo.monster/liteproblems/146        
 
 class ListNode:
     def __init__(self, key, val):
