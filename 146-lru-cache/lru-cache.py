@@ -16,11 +16,16 @@ class LRUCache:
         val = self.d[key]
         del self.d[key]
         self.d[key] = val
+        # can also use move_to_end method
+        # self.d.move_to_end(key)
         return val
 
     def put(self, key: int, value: int) -> None:
         if key in self.d:
             del self.d[key]
+            # can also use move_to_end method
+            # self.d.move_to_end(key)
+
         self.d[key] = value
         if len(self.d) > self.n:
             self.d.popitem(last=False)
