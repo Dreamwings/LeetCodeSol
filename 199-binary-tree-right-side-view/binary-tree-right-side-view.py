@@ -46,10 +46,6 @@ class Solution:
         
         res += r
         
-        ll, rl = len(l), len(r)
-        if rl < ll:
-            res += l[rl:]
-        
-        return res
+        return res + r + l[len(r):]
 
         
