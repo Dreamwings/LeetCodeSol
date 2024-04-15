@@ -1,25 +1,28 @@
 class Solution:
     def customSortString(self, order: str, s: str) -> str:
         
-        ## S1:
-        ## T: O(N + M)
+        ## S1: Counter
+        ## T: O(N), N = len(s)
         ## T: O(N)
 
         d = collections.Counter(s)
-        tmp = []
+        arr = []  # Array to hold ordered substrings for each ch
 
         for c in order:
             if c in d:
-                tmp.append(c * d[c])
+                arr.append(c * d[c])
                 del d[c]
+                # d[c] = 0 # Also works.
         
         for k, v in d.items():
-            tmp.append(k * v)
+            arr.append(k * v)
 
-        return ''.join(tmp)
+        return ''.join(arr)
 
-        """
+
+
         ## S1: Not good way of S1
+
         d = collections.Counter(s)
         res = '' # Using str concat will make time complexity very large
         # Creating a new str of len M comsumes time O(M)
@@ -33,4 +36,4 @@ class Solution:
             res += k * v
         
         return res
-        """
+        
