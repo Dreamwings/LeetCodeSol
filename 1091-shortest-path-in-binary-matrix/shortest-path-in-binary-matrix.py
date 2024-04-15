@@ -1,15 +1,15 @@
 class Solution:
     def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
 
-        ## S2: BFS
-        ## T: O(N^2)
+        ## S2: Deque BFS
+        ## T: O(N^2), N = len(grid)
         ## S: O(N^2)
         
         n = len(grid)
         if grid[0][0] == 1: return -1
 
-        q = collections.deque()
-        q.append((0, 0, 1))
+        q = collections.deque()  # hold (x, y, steps)
+        q.append((0, 0, 1))  
         d = [(0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
         # grid[0][0] = 1 # Mark this cell as visited using 1
         # Using a visited set instead of modifying the input in-place, reason:
@@ -32,12 +32,12 @@ class Solution:
 
         return -1
 
-        """
+        
 
         ## S3: A* Algorithm 
         ## https://theory.stanford.edu/~amitp/GameProgramming/AStarComparison.html
         ## https://www.redblobgames.com/pathfinding/a-star/introduction.html
-        ## T: O(N^2 * log(N^2))
+        ## T: O(N^2 * log(N^2)), N = len(grid)
         ## S: O(N^2)
         
         from heapq import heappush, heappop
@@ -85,8 +85,9 @@ class Solution:
         return -1
 
 
-        ## S1: BFS
-        ## T: O(N^2)
+
+        ## S1: Level BFS
+        ## T: O(N^2), N = len(grid)
         ## S: O(N^2)
 
         n = len(grid)
@@ -113,4 +114,3 @@ class Solution:
             
         return -1            
         
-        """
