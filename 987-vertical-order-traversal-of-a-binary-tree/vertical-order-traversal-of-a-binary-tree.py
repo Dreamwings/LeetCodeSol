@@ -9,8 +9,8 @@ class Solution:
         
         from collections import defaultdict
         
-        ## S1: BFS
-        ## T: O(NlogN)
+        ## S1: BFS with Partition Sorting (DFS also works)
+        ## T: O(K * N/K * log(N/K)) = O(N * log(N/K)) 
         ## S: O(N)
 
         if not root: return []
@@ -38,7 +38,8 @@ class Solution:
         
         return res
 
-        """
+
+
         ## S2: DFS
         ## T: O(NlogN)
         ## S: O(N)
@@ -53,13 +54,6 @@ class Solution:
         
         dfs(root, 0, 0)
         nodes = sorted(nodes, key=lambda x:(x[1], x[0], x[2]))
-        # d = defaultdict(list)
-        # for i, j, k in nodes:
-        #     d[j].append(k)
-        # res = []
-        # for i in d.values():
-        #     res.append(i)
-        # return res
 
         res, prev = [], float('-inf')
         for i, j, val in nodes:
@@ -69,4 +63,12 @@ class Solution:
             res[-1].append(val)
 
         return res
-        """
+
+        ## Another way for the last part of S2 after getting "nodes" sorted.
+        # d = defaultdict(list)
+        # for i, j, k in nodes:
+        #     d[j].append(k)
+        # res = []
+        # for i in d.values():
+        #     res.append(i)
+        # return res
