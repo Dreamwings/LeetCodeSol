@@ -3,15 +3,14 @@ class Solution:
         
         from collections import Counter
         from heapq import nlargest, heappush, heappop
-
-        
-        ## S4: Bucket sort
+       
+        ## S5: Bucket sort
         ## T: O(N)
         ## S: O(N)
         
         d = Counter(nums) # O(N)
-        n = max(d.values())
-        bucket = [[] for _ in range(n + 1)]
+        max_freq = max(d.values()) # max freq
+        bucket = [[] for _ in range(max_freq + 1)]
         res = []
 
         # O(N)
@@ -19,7 +18,7 @@ class Solution:
             bucket[f].append(x)
         
         # O(N)
-        for f in range(n, -1, -1):
+        for f in range(max_freq, -1, -1):
             res += bucket[f]
             k -= len(bucket[f])
             if k <= 0:
@@ -27,9 +26,41 @@ class Solution:
 
         return res
 
-        """
+
+        ## S4: Quick Select Sorting
+        ## T: O(N)
+        ## S: O(N)
+
+        d = Counter(nums) # O(N)
+
+        def quick_select(arr, K):
+            # Function to sort arr and return the K largest element
+            # arr = list(d.items()), each elem of arr is (val, freq) pair
+            # This func is sorting according to "freq" of each elem
+
+            pivot = random.choice(arr)[1] # random choice of a freq value
+            sm, eq, gt = [], [], []
+
+            for x, f in arr:
+                if f < pivot:
+                    sm.append((x, f))
+                elif f > pivot:
+                    gt.append((x, f))
+                else:
+                    eq.append((x, f))
+            len_gt, len_eq = len(gt), len(eq)
+            if K <= len_gt:
+                return quick_select(arr, K)
+            elif K > len_gt + len_eq:
+                return gt + eq + quick_select(sm, K - len_gt - len_eq)
+            else:
+                return gt + eq
         
-        ## S3: dict.most_common(k)
+        k_frequent = quick_select(list(d.items()), k)
+        return [x for x, f in k_frequent]
+
+        
+        ## S1: dict.most_common(k)
         ## T: O(NlogK)
         ## S: O(N)
         
@@ -53,9 +84,9 @@ class Solution:
 
         
         
-        ## S1: Heapq
+        ## S3: Heapq
         ## T: O(NlogK)
-        ## S: O(N)
+        ## S: O(N+K)
 
         d = Counter(nums)
         res = []
@@ -65,4 +96,4 @@ class Solution:
                 heappop(res)
 
         return [x for f, x in res]
-        """
+
