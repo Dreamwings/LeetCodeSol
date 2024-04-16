@@ -10,6 +10,9 @@ class Solution:
     def insert(self, head: 'Optional[Node]', insertVal: int) -> 'Node':
         
         ## S1: Two Pointers
+        ## T: O(N)
+        ## S: O(1)
+        
         new = Node(insertVal)
 
         # Case 1: the linked list is empty
