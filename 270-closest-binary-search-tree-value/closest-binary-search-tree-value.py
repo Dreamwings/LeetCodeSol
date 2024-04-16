@@ -7,8 +7,27 @@
 class Solution:
     def closestValue(self, root: Optional[TreeNode], target: float) -> int:
 
-        ## S1:
-        ## T: O(logN)
+        ## S2:
+        ## T: O(H) ~ O(logN)
+        ## S: O(1)
+
+        if not root: return None
+
+        res = root.val
+
+        while root:
+            res = min(root.val, res, key=lambda x: (abs(target - x), x))
+            if target < root.val:
+                root = root.left
+            else:
+                root = root.right
+
+        return res
+
+
+
+        ## S1: Two Boundaries
+        ## T: O(H) ~ O(logN)
         ## S: O(1)
         
         if not root: return None
