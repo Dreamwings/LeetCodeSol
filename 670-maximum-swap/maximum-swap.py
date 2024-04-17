@@ -3,7 +3,9 @@ class Solution:
         
         from collections import defaultdict
         
-        ## S1:
+        ## S1: Greedy
+        ## T: O(N)
+        ## S: O(N)
 
         a = list(map(int, str(num)))  # Note in Python 3, need to use list for map function
         # a = [int(x) for x in str(num)]
@@ -19,7 +21,7 @@ class Solution:
         
         return num
 
-        """
+
 
         ## S2:
 
@@ -51,4 +53,3 @@ class Solution:
         # Convert the list of digits back to a string and then to an integer.
         return int(''.join(digits))
 
-        """
