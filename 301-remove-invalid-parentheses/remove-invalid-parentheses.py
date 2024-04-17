@@ -1,7 +1,52 @@
 class Solution:
     def removeInvalidParentheses(self, s: str) -> List[str]:
-        
-        ## Solutionn 1: DFS (24ms)
+
+        ## S3: BFS
+        ## https://leetcode.com/problems/remove-invalid-parentheses/solutions/75028/short-python-bfs/
+        ## T: O(2^N)
+        ## S: O(2^N)
+
+        # The idea is to remove 1 single char at each position of s for each level/step. 
+        # When there are valid str at a level, add them all to the res array and return
+        # 1st level: s
+        # 2nd level: all subsequences by removing 1 ch from s
+        # 3rd level: all subsequences by removing 2 ch from s
+        # ...
+
+        def isvalid(s):
+            cnt = 0
+            for c in s:
+                cnt += (c == '(') - (c == ')')
+                if cnt < 0:
+                    return False
+            return cnt == 0
+
+        q = {s} # Here must use set() because for deeper levels there might be duplicated strings
+        while q:
+            res = list(filter(isvalid, q))
+            if res:
+                return res
+            q = {s[:i] + s[i+1:] for s in q for i in range(len(s))}
+
+
+        ## S4: BFS
+
+        def isvalid(s):
+            s = ''.join(filter('()'.count, s))
+            while '()' in s:
+                s = s.replace('()', '')
+            return not s
+
+        level = {s}
+        while True:
+            valid = list(filter(isvalid, level))
+            if valid:
+                return valid
+            level = {s[:i] + s[i+1:] for s in level for i in range(len(s))} 
+
+
+
+        ## S2: DFS (24ms)
         ## T: O(2^N) < T < O(3^N)
         ## S: O(N)
         
@@ -32,9 +77,9 @@ class Solution:
         dfs(s, 0, 0, res, d = {'(': 1, ')': -1})
         return res
 
-        """
+
         
-        ## S2: DFS Backtracking  (32ms)
+        ## S1: DFS Backtracking  (32ms)
         
         def valid(x):  # to check if a string x is valid
             l_minus_r = 0
@@ -85,6 +130,4 @@ class Solution:
         dfs(s, 0, l_rem, r_rem)
         return res
         
-        
-        """
-        
+      
