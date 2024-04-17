@@ -2,71 +2,10 @@ class Solution:
     def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
 
         from collections import defaultdict
-        """
-        ## S1: Two for loops
-        ## T: O(MN + (M+N)log(M+N))
-        ## S: O(M+N)
-        
-        m, n = len(mat), len(mat[0])
-        d = defaultdict(list)
-        
-        for i in range(m):
-            for j in range(n):
-                d[i + j].append(mat[i][j]) 
-        
-        res = []
-        for k in sorted(d):
-            if k & 1:
-                res += d[k]
-            else:
-                res += d[k][::-1]
-        
-        return res
-        
-        """
 
-        ## S2: One for loop + One while loop
-        ## T: O((M+N)*N)
-        ## S: O(M+N)
-        m, n = len(mat), len(mat[0])
-      
-        # This is the list which will hold the elements in diagonal order.
-        res = []
-      
-        # There will be (m + n - 1) diagonals to cover in the matrix.
-        for k in range(m + n - 1):
-          
-            # Temp list to store the elements of the current diagonal.
-            temp = []
-          
-            # Calculate the starting row index. It is 0 for the first 'n' diagonals,
-            # otherwise we start at an index which goes down from 'm - 1'.
-            row = 0 if k < n else k - n + 1
-          
-            # Calculate the starting column index. It is 'k' for the first 'n' diagonals,
-            # otherwise we start at 'n - 1' and go down.
-            col = k if k < n else n - 1
-          
-            # Fetch the elements along the current diagonal.
-            # Continue while 'row' is within the matrix row range and 'col' is non-negative.
-            while row < m and col >= 0:
-                temp.append(mat[row][col])
-                row += 1  # Move down to the next row.
-                col -= 1  # Move left to the next column.
-          
-            # Reverse every other diagonal's elements before appending it to the result list
-            # to get the right order.
-            if k % 2 == 0:
-                temp = temp[::-1]
-          
-            # Extend the main result list with the elements of the current diagonal.
-            res.extend(temp)
-      
-        # Return the final result list.
-        return res
-        
-        """
         ## S3
+        ## T: O(M*N)
+        ## S: O(1)
         
         m, n = len(mat), len(mat[0])
         res = []
@@ -95,5 +34,64 @@ class Solution:
                     i, j = i + 1, j - 1
         
         return res            
-        """
+
+
+
+        ## S1: Two for loops
+        ## T: O(MN + (M+N)log(M+N))
+        ## S: O(M+N)
+        
+        m, n = len(mat), len(mat[0])
+        d = defaultdict(list)
+        
+        for i in range(m):
+            for j in range(n):
+                d[i + j].append(mat[i][j]) 
+        
+        res = []
+        for k in sorted(d):
+            if k & 1:
+                res += d[k]
+            else:
+                res += d[k][::-1]
+        
+        return res
+        
+
+
+        ## S2: One for loop + One while loop
+        ## T: O(M*N)
+        ## S: O(min(M, N))
+
+        m, n = len(mat), len(mat[0])
+        res = []
+      
+        # There will be (m + n - 1) diagonals to cover in the matrix.
+        for k in range(m + n - 1):
+            temp = [] # Temp list to store the elements of the current diagonal.
+          
+            # Calculate the starting row index. It is 0 for the first 'n' diagonals,
+            # otherwise we start at an index which goes down from 'm - 1'.
+            row = 0 if k < n else k - n + 1
+          
+            # Calculate the starting column index. It is 'k' for the first 'n' diagonals,
+            # otherwise we start at 'n - 1' and go down.
+            col = k if k < n else n - 1
+          
+            # Fetch the elements along the current diagonal.
+            # Continue while 'row' is within the matrix row range and 'col' is non-negative.
+            while row < m and col >= 0:
+                temp.append(mat[row][col])
+                row += 1  # Move down to the next row.
+                col -= 1  # Move left to the next column.
+          
+            # Reverse every other diagonal's elements before appending it to the result list
+            # to get the right order.
+            if k % 2 == 0:
+                temp = temp[::-1]
+            res.extend(temp) # Extend the result with the elements of the current diagonal.
+      
+        return res
+        
+
                 
