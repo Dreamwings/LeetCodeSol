@@ -5,9 +5,10 @@ class Solution:
         ## T: O(N)
         ## S: O(1)
 
-        i = 0
+        i = 0 # left pointer
         
         for j, v in enumerate(nums):
+            # j is right pointer
             k -= (1 - v)
             if k < 0:
                 k += (1 - nums[i])
@@ -15,7 +16,8 @@ class Solution:
         
         return j - i + 1
         
-        """
+
+
         ## S2: Sliding Window
         ## T: O(N)
         ## S: O(1)
@@ -43,4 +45,3 @@ class Solution:
         # the difference between the right and left pointers
         return right - left
 
-        """
