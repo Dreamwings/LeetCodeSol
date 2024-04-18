@@ -9,7 +9,9 @@ class Solution:
         
         while l <= r:
             m = (l + r) >> 1
-            if arr[m] - (m + 1) < k:
+            # How many positive numbers are missing by index m?
+            missing_by_m = arr[m] - (m + 1)
+            if missing_by_m < k:
                 l = m + 1
             else:
                 r = m - 1
