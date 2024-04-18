@@ -2,7 +2,7 @@ class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         
         from collections import defaultdict, deque
-        """        
+        
         ## S 1: Topological Sort (BFS with In Degree)
         ## Time: O(N + E), N is num of vertexes, E is num of edges
         ## Space: O(N + E)
@@ -24,7 +24,7 @@ class Solution:
                 # Add courses to be taken first into q
                 q.append(x)
         
-        if not q: return False
+        if not q: return False # There is a loop
         
         while q:
             x = q.popleft()
@@ -37,7 +37,7 @@ class Solution:
         if len(visited) == numCourses:
             return True
         return False
-        """
+        
         
         
         ## S 2: DFS
@@ -59,7 +59,7 @@ class Solution:
         
         def dfs(i):
             # print(i, visited[i])
-            if visited[i] == -1: return False
+            if visited[i] == -1: return False # There is a loop
             if visited[i] == 1: return True
             
             visited[i] = -1  # temperorily set it to unvisited
