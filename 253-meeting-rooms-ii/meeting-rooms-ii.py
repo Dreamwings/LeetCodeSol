@@ -18,8 +18,9 @@ class Solution:
         
         return res
         
-        """
-        ## S2:
+
+
+        ## S2: Bucket Sort
         ## T: O(1000010) -> O(1)
         ## S: O(1000010) -> O(1)
 
@@ -35,6 +36,7 @@ class Solution:
         # active meetings at each time
         # "max" to find the maximum number of concurrent meetings
         return max(accumulate(meeting_delta))
+
 
         
         ## S3: Heap 
@@ -54,5 +56,4 @@ class Solution:
         
         return len(heap)
 
-        """
         
