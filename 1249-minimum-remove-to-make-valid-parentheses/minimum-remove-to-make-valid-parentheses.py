@@ -6,7 +6,7 @@ class Solution:
         ## S: O(N)
 
         s = list(s)
-        stack = []
+        stack = [] # store index for '('
         for i, char in enumerate(s):
             if char == '(':
                 stack.append(i)
@@ -23,7 +23,8 @@ class Solution:
 
         return ''.join(s)
         
-        """
+        
+        
         ## S1: Stack
         ## T: O(N)
         ## S: O(N)
@@ -42,9 +43,12 @@ class Solution:
         
         return "".join(stack) + cur
 
+
+
         ## S2:
         ## Time: O(3N)
         ## Space: O(N)
+
         cnt = 0
         h = set()
         n = len(s)
@@ -74,5 +78,5 @@ class Solution:
             res += c
         
         return res
-        """
+        
         
