@@ -2,6 +2,8 @@ class Solution:
     def minimumCost(self, nums: List[int], k: int, dist: int) -> int:
         
         ## S1: SortedList + Sliding Window
+        ## T: O(N * (log(K) + K)), N = len(nums), K is the size of the sorted list
+        ## S: O(K + dist)
 
         from sortedcontainers import SortedList
         import bisect
