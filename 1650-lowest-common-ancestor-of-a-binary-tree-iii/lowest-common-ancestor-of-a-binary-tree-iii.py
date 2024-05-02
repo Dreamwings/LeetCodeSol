@@ -22,12 +22,14 @@ class Solution:
 
         return pa
 
-        """
+        
+
         ## S1:
         ## Time: O(logN) 
         ## Space: O(logN)
         # note that it doesn't give the root
         # first traverse from one of the node to root and store nodes in the path
+
         path = set()
         while A:
             path.add(A)
@@ -39,5 +41,4 @@ class Solution:
             B = B.parent
 
         return None
-        """
         
