@@ -1,9 +1,32 @@
 class Solution:
     def validPalindrome(self, s: str) -> bool:
         
-        ## S1: Two Pointers
+        ## S3: Two Pointers
         ## Time: O(N)
         ## Space: O(1)
+
+        def is_valid(i, j):
+            while i < j:
+                if s[i] != s[j]:
+                    return False
+                i, j = i + 1, j - 1
+            return True
+
+        i, j = 0, len(s) - 1 
+
+        while i < j:
+            if s[i] != s[j]:
+                return is_valid(i, j - 1) or is_valid(i + 1, j)
+            
+            i, j = i + 1, j - 1
+
+        return True
+
+
+        
+        ## S1: Two Pointers
+        ## Time: O(N)
+        ## Space: O(N)
         
         n = len(s)
         if n == 1: return True
@@ -17,8 +40,9 @@ class Solution:
             l += 1
             r -= 1
         return True
-        """
         
+        
+
         ## S2:
         
         def helper(l, r):
@@ -33,27 +57,4 @@ class Solution:
         
         return helper(0, len(s)-1)    
 
-        ## S3: Two Pointers
-        ## Time: O(N)
-        ## Space: O(1)
-
-        def is_palindrome(left, right):
-            while left < right:
-                if string[left] != string[right]:
-                    return False
-                left, right = left + 1, right - 1
-            return True
-
-        left, right = 0, len(string) - 1 
-
-        while left < right:
-            if string[left] != string[right]:
-                return is_palindrome(left, right - 1) or is_palindrome(left + 1, right)
-            
-            left, right = left + 1, right - 1
-
-        return True
-
-        """
-        
         
