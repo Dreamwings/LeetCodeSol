@@ -30,14 +30,14 @@ class Solution:
             
 
         
-        ## Solution 1:
+        ## S1: Heap nlargest
         ## Time: O(NlogK)
         ## Space: O(N)
         
         return nlargest(k, nums)[-1]
         
         
-        ## Solution 2:
+        ## S2: Min Heap
         ## Time: O(NlogK)
         ## Space: O(N)
 
@@ -57,7 +57,7 @@ class Solution:
 
 
 
-        ## S4: Quick Select (Iterative)
+        ## S4: Quick Select 
         ## Time: O(N) for best and avg, O(N^2) for worst
         ## Space: O(N)
         ## Time Limit Exceeded
