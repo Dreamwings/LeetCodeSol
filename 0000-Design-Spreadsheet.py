@@ -1,14 +1,17 @@
 """
 Question:
-Design a spreadsheet like object using Python. It has a max of 1000 rows and columns. You can insert or delete one or more empty rows or cols. It has a limited memory.
+Design a spreadsheet like object using Python. It has a max of 1000 rows and columns. 
+You can insert or delete one or more empty rows or cols. It has a limited memory.
 """
 
+# ===================================================================
 # To get optimal time complexity with O(1), we need to give the following prompt to ChatGPT:
+# ===================================================================
 """
-Design a spreadsheet like object using Python. It has a max of 1000 rows and columns. You can insert or delete one or more empty rows or cols. It has a limited memory. Use double linked list with O(1) time complexity
-
+Design a spreadsheet like object using Python. It has a max of 1000 rows and columns. 
+You can insert or delete one or more empty rows or cols. It has a limited memory. 
+Use double linked list with O(1) time complexity
 """
-
 
 
 class Node:
