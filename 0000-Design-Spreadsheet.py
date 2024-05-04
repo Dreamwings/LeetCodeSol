@@ -2,6 +2,9 @@
 Question:
 Design a spreadsheet like object using Python. It has a max of 1000 rows and columns. 
 You can insert or delete one or more empty rows or cols. It has a limited memory.
+
+It's an interview question from MSFT:
+https://leetcode.com/discuss/interview-question/1975081/Microsoft-Round-2-LLD-question
 """
 
 # ===================================================================
