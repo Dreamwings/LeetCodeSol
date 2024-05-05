@@ -5,7 +5,20 @@ You can insert or delete one or more empty rows or cols. It has a limited memory
 
 It's an interview question from MSFT:
 https://leetcode.com/discuss/interview-question/1975081/Microsoft-Round-2-LLD-question
+
+Some data structures might be relevant:
+
+Linked List
+https://stackoverflow.com/questions/66405955/best-datastructure-to-implement-excel-spreadsheet
+
+Sparse Matrix:
+https://www.javatpoint.com/sparse-matrix
+
+B+ Tree:
+https://www.javatpoint.com/b-plus-tree
+
 """
+
 
 # ===================================================================
 # To get optimal time complexity with O(1), we need to give the following prompt to ChatGPT:
