@@ -1,7 +1,7 @@
 class Solution:
     def minFallingPathSum(self, grid: List[List[int]]) -> int:
-        """
-        ## S2: DP with Optimal Space
+        
+        ## S2: DP + Heap with Optimal Space
         ## T: O(M*N)
         ## S: O(1)
 
@@ -10,7 +10,7 @@ class Solution:
             for j in range(len(grid[0])):
                 grid[i][j] += r[1] if grid[i - 1][j] == r[0] else r[0]
         return min(grid[-1])
-        """
+        
 
 
         ## S1: DP with Optimal Space
