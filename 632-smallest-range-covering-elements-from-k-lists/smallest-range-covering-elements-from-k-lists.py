@@ -21,13 +21,13 @@ class Solution:
         #    Get the next element and add it to the heap.
         #    Update the max_val variable if necessary.
         while len(hp) == len(nums):
-            val, row, col = heapq.heappop(hp)
+            val, row, col = heappop(hp)
             if max_val - val < range_end - range_start:
                 range_start, range_end = val, max_val
             if col + 1 < len(nums[row]):
                 next_val = nums[row][col + 1]
                 max_val = max(max_val, next_val)
-                heapq.heappush(hp, (next_val, row, col + 1))
+                heappush(hp, (next_val, row, col + 1))
                 
         return [range_start, range_end]
 
