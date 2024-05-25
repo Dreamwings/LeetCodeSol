@@ -11,25 +11,26 @@ class Solution:
         heapify(hp)
 
         max_val = max(sub_list[0] for sub_list in nums)
-        range_start, range_end = float('-inf'), float('inf')
+        lo, hi = float('-inf'), float('inf')
         
         # While the heap has elements from each list:
         # a. Pop the smallest element from the heap.
-        # b. If the range from the maximum element minus the popped element is smaller than the current range:
-        #    Update the range_start and range_end variables.
+        # b. If the range from the maximum element minus the popped element is 
+        #    smaller than the current range:
+        #    Update the lo and hi variables.
         # c. If there is another element in the list from which we just popped:
         #    Get the next element and add it to the heap.
         #    Update the max_val variable if necessary.
         while len(hp) == len(nums):
             val, row, col = heappop(hp)
-            if max_val - val < range_end - range_start:
-                range_start, range_end = val, max_val
+            if max_val - val < hi - lo:
+                lo, hi = val, max_val
             if col + 1 < len(nums[row]):
                 next_val = nums[row][col + 1]
                 max_val = max(max_val, next_val)
                 heappush(hp, (next_val, row, col + 1))
                 
-        return [range_start, range_end]
+        return [lo, hi]
 
 
         """
