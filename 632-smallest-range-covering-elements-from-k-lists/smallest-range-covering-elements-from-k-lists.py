@@ -7,10 +7,10 @@ class Solution:
         ## S: O(M)
 
         # Create a heap and initialize it with the first element from each of the k lists.
-        hp = [(sub_list[0], i, 0) for i, sub_list in enumerate(nums)]
+        hp = [(row[0], i, 0) for i, row in enumerate(nums)]
         heapify(hp)
 
-        max_val = max(sub_list[0] for sub_list in nums)
+        max_val = max(row[0] for row in nums)
         lo, hi = float('-inf'), float('inf')
         
         # While the heap has elements from each list:
@@ -22,15 +22,16 @@ class Solution:
         #    Get the next element and add it to the heap.
         #    Update the max_val variable if necessary.
         while len(hp) == len(nums):
-            val, row, col = heappop(hp)
+            val, r, c = heappop(hp)
             if max_val - val < hi - lo:
                 lo, hi = val, max_val
-            if col + 1 < len(nums[row]):
-                next_val = nums[row][col + 1]
+            if c + 1 < len(nums[r]):
+                next_val = nums[r][c + 1]
                 max_val = max(max_val, next_val)
-                heappush(hp, (next_val, row, col + 1))
+                heappush(hp, (next_val, r, c + 1))
                 
         return [lo, hi]
+        
 
 
         """
