@@ -3,7 +3,7 @@ class Solution:
 
         ## S1: 
         ## T: O(N)
-        ## S: O(N)
+        ## S: O(1)
 
         res,  max_height = [], 0
 
