@@ -2,16 +2,15 @@ class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         
         from heapq import nlargest, heappush, heappop
-
-
+        
         ## S3: Quick Select (Recursive)
         ## Time: O(N) for best and avg, O(N^2) for worst
         ## Space: O(N)
 
         if not nums: return
         p = random.choice(nums) # pivot
+        gt, eq, st = [], [], [] # elem > p, elem == p, elem < p
 
-        gt, eq, st = [], [], []
         for x in nums:
             if x > p:
                 gt.append(x)
@@ -51,9 +50,23 @@ class Solution:
         return q[0]
 
 
-        
+
         ## S5: Counting Sort
-        ## https://leetcode.com/problems/kth-largest-element-in-an-array/solutions/4760057/counting-sort-easy-and-optimised-python/
+        ## T: O(N + M), N = len(nums), M = max_v - min_v + 1
+        ## S: O(M)
+        min_v, max_v = min(nums), max(nums)
+        m = max_v - min_v + 1
+        cnt = [0] * m
+
+        for x in nums:
+            cnt[x - min_v] += 1
+
+        for i in reversed(range(m)):
+            k -= cnt[i]
+            if k <= 0:
+                return i + min_v
+
+        return -1
 
 
 
