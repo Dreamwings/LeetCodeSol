@@ -34,13 +34,13 @@ class Solution:
                 node.right = r_head
                 tail = r_tail
             
-            head.left, tail.right = tail, head
+            head.left, tail.right = tail, head # Connect head and tail to finalize doubly linked list.
             
             return head, tail
 
         return dfs(root)[0]
 
-        """
+        
 
         ## S2: DFS
         ## T: O(N)
@@ -75,4 +75,4 @@ class Solution:
         head.left = prev
 
         return head
-        """
+        
