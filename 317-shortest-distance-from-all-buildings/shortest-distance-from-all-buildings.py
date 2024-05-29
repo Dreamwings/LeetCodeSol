@@ -9,12 +9,12 @@ class Solution:
 
         if not grid or not grid[0]: return -1
         m, n = len(grid), len(grid[0])
-        dd = defaultdict(int)  # store the dist sum at each 0 cell to the 1 cells (buildings)
-        num_ones = defaultdict(int)  # store how many buildings visited 0 cell (x, y)
+        dd = defaultdict(int)  # Stores the dist sum at each 0 cell to the 1 cells (buildings)
+        num_ones = defaultdict(int)  # Stores how many buildings visited 0 cell (x, y)
         tot_ones = sum(v for row in grid for v in row if v == 1)
         
-        def valid(x, y):
-            return 0 <= x < m and 0 <= y < n
+        def valid(i, j):
+            return 0 <= i < m and 0 <= j < n
 
         def bfs(x, y):
             seen = set()
@@ -39,7 +39,6 @@ class Solution:
                             elif grid[i][j] == 1:  # For pruning
                                 seen_ones += 1
                 q = nxt
-            
             return seen_ones == tot_ones
         
         for i in range(m):
@@ -63,8 +62,8 @@ class Solution:
 
         if not grid or not grid[0]: return -1
         m, n = len(grid), len(grid[0])
-        dd = defaultdict(int)  # store the dist sum at each 0 cell to the 1 cells (buildings)
-        num_ones = defaultdict(int)  # store how many buildings visited 0 cell (x, y)
+        dd = defaultdict(int)  # Stores the dist sum at each 0 cell to the 1 cells (buildings)
+        num_ones = defaultdict(int)  # Stores how many buildings visited 0 cell (x, y)
         
         def valid(x, y):
             return 0 <= x < m and 0 <= y < n and grid[x][y] == 0
