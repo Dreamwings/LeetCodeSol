@@ -3,7 +3,7 @@ class Solution:
 
         ## S1:
         ## T: O(NK), K is avg string len
-        ## S: O(N)
+        ## S: O(NK), need to store both the hash value and the strings
 
         d = defaultdict(list)
 
