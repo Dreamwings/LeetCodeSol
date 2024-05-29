@@ -3,7 +3,61 @@ class Solution:
         
         from collections import defaultdict
         
-        ## S1 BFS
+        ## S2: BFS with Pruning (Optimized from S1)
+        ## T: O((M*N)^2)
+        ## S: O(MN)
+
+        if not grid or not grid[0]: return -1
+        m, n = len(grid), len(grid[0])
+        dd = defaultdict(int)  # store the dist sum at each 0 cell to the 1 cells (buildings)
+        num_ones = defaultdict(int)  # store how many buildings visited 0 cell (x, y)
+        tot_ones = sum(v for row in grid for v in row if v == 1)
+        
+        def valid(x, y):
+            return 0 <= x < m and 0 <= y < n
+
+        def bfs(x, y):
+            seen = set()
+            seen.add((x, y))
+            dist = 0
+            seen_ones = 1 # How many "1"s seen by (x, y) including itself
+            q = [(x, y)]
+            d = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
+            while q:
+                nxt = []
+                dist += 1
+                for xx, yy in q:
+                    for dx, dy in d:
+                        i, j = xx + dx, yy + dy
+                        if valid(i, j) and (i, j) not in seen:
+                            seen.add((i, j))
+                            if grid[i][j] == 0:
+                                nxt.append((i, j))
+                                dd[(i, j)] += dist
+                                num_ones[(i, j)] += 1  # IMPORTANT!!!
+                            elif grid[i][j] == 1:  # For pruning
+                                seen_ones += 1
+                q = nxt
+            
+            return seen_ones == tot_ones
+        
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    if not bfs(i, j): # For pruning, early exit
+                        return -1
+        
+        min_dist = float('inf')
+        for (x, y) in dd:
+            if num_ones[(x, y)] == tot_ones:  # IMPORTANT!!!
+                min_dist = min(min_dist, dd[(x, y)])
+
+        return -1 if min_dist == float('inf') else min_dist
+
+        
+
+        ## S1: BFS
         ## T: O((M*N)^2)
         ## S: O(MN)
 
@@ -49,8 +103,9 @@ class Solution:
 
         return -1 if min_dist == float('inf') else min_dist
 
-        """
-        ## S2: BFS
+
+
+        ## S3: BFS
         ## T: O((M*N)^2)
         ## S: O(MN)
 
@@ -102,4 +157,4 @@ class Solution:
       
         # If no cell can reach all buildings, return -1; otherwise, return the minimum distance
         return -1 if answer == float('inf') else answer
-        """
+        
