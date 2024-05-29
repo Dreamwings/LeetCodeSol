@@ -3,8 +3,8 @@ class Solution:
 
         ## S3: BFS
         ## https://leetcode.com/problems/remove-invalid-parentheses/solutions/75028/short-python-bfs/
-        ## T: O(2^N)
-        ## S: O(2^N)
+        ## T: O(N * 2^N), 2^N possible subsets of brakets, each need O(N) for isvalid check.
+        ## S: O(2^N) for worst case
 
         # The idea is to remove 1 single char at each position of s for each level/step. 
         # When there are valid str at a level, add them all to the res array and return
@@ -47,8 +47,8 @@ class Solution:
 
 
         ## S2: DFS (24ms)
-        ## T: O(2^N) < T < O(3^N)
-        ## S: O(N)
+        ## T: O(2^N)
+        ## S: O(N) to O(2^N) for worst case
         
         def dfs(s, lo, hi, res, d = {'(': 1, ')': -1}):
             cnt = 0
@@ -80,6 +80,8 @@ class Solution:
 
         
         ## S1: DFS Backtracking  (32ms)
+        ## T: O(2^N)
+        ## S: O(N + |res|), worst case O(2^N)
         
         def valid(x):  # to check if a string x is valid
             l_minus_r = 0
