@@ -20,7 +20,6 @@ class Solution:
             new.next = new  # Point the new to itself
             return new
       
-        # Initialize two pointers for iterating the linked list
         prev, curr = head, head.next
 
         # Traverse the linked list
@@ -33,10 +32,12 @@ class Solution:
             if (prev.val > curr.val and (insertVal >= prev.val or insertVal <= curr.val)):
                 break  # Correct insertion spot is found
 
+            # Case 4: all node values are equal, insert new between prev and curr anywhere
+            # while loop will break automatically
+
             # Move to the next pair of nodes
             prev, curr = curr, curr.next
 
-        # Case 4: all node values are equal, insert new between prev and curr anywhere
         prev.next = new
         new.next = curr
 
