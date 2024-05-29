@@ -8,9 +8,39 @@ class Solution:
     def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
         
         from collections import defaultdict
+
+        ## S3: BFS with Partition Sorting (Optimized from S2)
+        ## T: O(N + K * N/K * log(N/K)) = O(N * log(N/K)) 
+        ## S: O(N)
+
+        if not root: return []
         
-        ## S1: BFS with Partition Sorting (DFS also works)
-        ## T: O(K * N/K * log(N/K)) = O(N * log(N/K)) 
+        d = defaultdict(list)
+        q = [(root, 0)]
+        min_col = max_col = 0
+        
+        while q:
+            nxt = []
+            t = defaultdict(list)
+            for node, i in q:
+                t[i].append(node.val)
+                min_col = min(min_col, i)
+                max_col = max(max_col, i)
+                if node.left:
+                    nxt.append((node.left, i - 1))
+                if node.right:
+                    nxt.append((node.right, i + 1))
+            
+            q = nxt
+            for k, v in t.items():
+                d[k] += sorted(v)
+        
+        return [d[k] for k in range(min_col, max_col + 1)]
+
+
+        
+        ## S2: BFS (DFS also works)
+        ## T: O(NlogN) for sorting the keys 
         ## S: O(N)
 
         if not root: return []
@@ -25,9 +55,9 @@ class Solution:
             for node, i in q:
                 t[i].append(node.val)
                 if node.left:
-                    nxt.append((node.left, i-1))
+                    nxt.append((node.left, i - 1))
                 if node.right:
-                    nxt.append((node.right, i+1))
+                    nxt.append((node.right, i + 1))
             
             q = nxt
             for k, v in t.items():
@@ -40,7 +70,7 @@ class Solution:
 
 
 
-        ## S2: DFS
+        ## S1: DFS
         ## T: O(NlogN)
         ## S: O(N)
 
