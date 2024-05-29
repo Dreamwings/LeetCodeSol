@@ -4,10 +4,10 @@ class Solution:
         from collections import Counter
 
         ## S4: DFS + Memory
-        ## T: O(M * 2^N)
+        ## T: O(M * 2^N), M = len(stickers), N = len(target)
         ## S: O(M)
 
-        stickers = [Counter(s) for s in stickers if set(s) & set(target)]
+        cnt_list = [Counter(s) for s in stickers if set(s) & set(target)]
         self.mem = {} # Memory
 
         def dfs(target):
@@ -18,7 +18,7 @@ class Solution:
 
             cnt, res = Counter(target), float('inf')
 
-            for c in stickers: # traverse the stickers to get new target
+            for c in cnt_list: # traverse the cnt_list to get new target
                 if c[target[0]] == 0: 
                     # we can make sure the 1st letter will be removed to reduce the time complexity
                     continue 
@@ -26,6 +26,7 @@ class Solution:
                 nxt = dfs(new_target)
                 if nxt != -1: 
                     res = min(res, 1 + nxt)
+                    
             self.mem[target] = -1 if res == float('inf') else res
             return self.mem[target]
 
