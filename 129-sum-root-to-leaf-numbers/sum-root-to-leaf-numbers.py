@@ -7,23 +7,39 @@
 class Solution:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
         
-        ## S3: DFS
+        ## S3: Recursive DFS (Note S4 is Optimal)
         ## T: O(N)
         ## S: O(H) ~ O(N) for worst case
 
-        def dfs(node, ans) -> int:
+        self.res = 0
+        def dfs(node, cur_v):
             if not node:
-                return 0
-            ans = ans * 10 + node.val
+                return
+            # Calculate the current val from root to node
+            cur_v = cur_v * 10 + node.val
+            # If the current node is a leaf, add the current val to the result
             if not node.left and not node.right:
-                return ans
-            return dfs(node.left, ans) + dfs(node.right, ans)
+                self.res += cur_v
+            # If not a leaf, continue DFS
+            dfs(node.left, cur_v)
+            dfs(node.right, cur_v)
+
+        dfs(root, 0)
+        return self.res
+
+        # Another writing to aviod global variable
+        # def dfs(node, res) -> int:
+        #     if not node:
+        #         return 0
+        #     res = res * 10 + node.val
+        #     if not node.left and not node.right:
+        #         return res
+        #     return dfs(node.left, res) + dfs(node.right, res)
             
-        return dfs(root, 0)
+        # return dfs(root, 0)
 
 
-
-        ## S4: Morris Preorder Traversal 
+        ## S4: Morris Algorithm Preorder Traversal 
         ## T: O(N)
         ## S: O(1)
 
@@ -96,7 +112,7 @@ class Solution:
         
         return sum(vals)
         
-        ## S2: DFS
+        ## S2: Iterative DFS
         ## T: O(N)
         ## S: O(N)
 
