@@ -4,17 +4,39 @@ class Solution:
         ## S5: Using **
         
         return x ** n
-
-        
-"""        
+                
         ## S4: Using Math Lib
 
         return math.pow(x, n); 
 
+                
+        ## S1: Iterative
+        ## T: O(logN)
+        ## S: O(1)
+
+        if n == 0: return 1
+        if x == 0:
+            if n > 0: return 0
+            if n < 0: raise ZeroDivisionError
+        
+        if n < 0: 
+            x = 1/x
+            n = -n
+        
+        p = 1
+        while n:
+            if n & 1:  # n odd
+                p *= x
+            n //= 2
+            x = x * x
+            
+        return p
+ 
+
 
         ## S3: Recursive
         ## T: O(logN)
-        ## S: O(1)
+        ## S: O(logN)
 
         # Base case, to stop recursive calls.
         if n == 0:
@@ -54,29 +76,4 @@ class Solution:
         else:
             return 1 / quick_power(x, -n)
             # return quick_power(1/x, -n) 
-
-
-                
-        ## S1:
-        ## T: O(logN)
-        ## S: O(1)
-
-        if n == 0: return 1
-        if x == 0:
-            if n > 0: return 0
-            if n < 0: raise ZeroDivisionError
-        
-        if n < 0: 
-            x = 1/x
-            n = -n
-        
-        p = 1
-        while n:
-            if n & 1:  # n odd
-                p *= x
-            n //= 2
-            x = x * x
-            
-        return p
-""" 
         
