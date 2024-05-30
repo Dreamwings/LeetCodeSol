@@ -3,9 +3,27 @@ class Solution:
         
         from collections import Counter
         from heapq import nlargest, heappush, heappop
-       
+
+        ## S6: Bucket sort
+        ## T: O(N), no elem freq can be larger than N.
+        ## S: O(N)
+        
+        d = Counter(nums) # O(N)
+        max_freq = max(d.values()) # max freq
+        bucket = [[] for _ in range(max_freq + 1)]
+        
+        # O(N)
+        for x, f in d.items(): 
+            bucket[f].append(x)
+        
+        # O(N)
+        res = [x for arr in bucket for x in arr]
+
+        return res[::-1][:k]
+
+
         ## S5: Bucket sort
-        ## T: O(N)
+        ## T: O(N), no elem freq can be larger than N.
         ## S: O(N)
         
         d = Counter(nums) # O(N)
@@ -28,7 +46,7 @@ class Solution:
 
 
         ## S4: Quick Select Sorting
-        ## T: O(N)
+        ## T: O(N) on avg, O(N^2) for the worst case
         ## S: O(N)
 
         d = Counter(nums) # O(N)
