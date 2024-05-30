@@ -19,13 +19,12 @@ class Solution:
         
         while q:
             nxt = []
+            res.append(q[-1].val)
             for node in q:
-                x = node.val
                 if node.left:
                     nxt.append(node.left)
                 if node.right:
                     nxt.append(node.right)
-            res.append(x)
             q = nxt
         
         return res
@@ -43,8 +42,6 @@ class Solution:
         
         l = self.rightSideView(root.left)
         r = self.rightSideView(root.right)
-        
-        res += r
         
         return res + r + l[len(r):]
 
