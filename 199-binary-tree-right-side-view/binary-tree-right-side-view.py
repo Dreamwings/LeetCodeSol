@@ -10,22 +10,23 @@ class Solution:
         ## S2: Iterative BFS
         ## T: O(N)
         ## S: O(D) ~ O(N) for worst case, D is max width of all levels
+
+        from collections import deque
         
         res = []
         if not root: return res
         
-        q = []
+        q = deque()
         q.append(root)
         
         while q:
-            nxt = []
             res.append(q[-1].val)
-            for node in q:
+            for _ in range(len(q)):
+                node = q.popleft()
                 if node.left:
-                    nxt.append(node.left)
+                    q.append(node.left)
                 if node.right:
-                    nxt.append(node.right)
-            q = nxt
+                    q.append(node.right)
         
         return res
         
