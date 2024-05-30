@@ -1,7 +1,9 @@
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
         
-        ## S1: 
+        ## S1: Hash Table
+        ## T: O(N)
+        ## S: O(N)
         
         # note that k >= 1
         # use dict d to store the remainder of presum mod k and its first index
@@ -20,7 +22,9 @@ class Solution:
         
         return False
 
-        """
+        
+        
+
         ## S2
         
         from collections import defaultdict
@@ -53,5 +57,5 @@ class Solution:
                 return True
         
         return False
-        """        
+        
         
