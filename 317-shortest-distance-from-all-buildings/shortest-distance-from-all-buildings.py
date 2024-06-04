@@ -4,6 +4,7 @@ class Solution:
         from collections import defaultdict
         
         ## S2: BFS with Pruning (Optimized from S1)
+        ## From houses to empty land
         ## T: O((M*N)^2)
         ## S: O(MN)
 
@@ -57,6 +58,7 @@ class Solution:
         
 
         ## S1: BFS
+        ## From houses to empty land
         ## T: O((M*N)^2)
         ## S: O(MN)
 
