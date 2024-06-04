@@ -4,6 +4,45 @@ class Solution:
         from bisect import bisect, insort
         from heapq import heappush, heappop, heappushpop
         
+        
+        ## S2: Min Heap and Max Heap (Lazy Removal)
+        ## T: O(N logK)
+        ## S: O(K)
+        
+        if not nums or not k:
+            return []
+        lo = [] # max heap
+        hi = [] # min heap
+        for i in range(k):
+            if len(lo) == len(hi):
+                heappush(hi, -heappushpop(lo, -nums[i]))
+            else:
+                heappush(lo, -heappushpop(hi, nums[i]))
+        ans = [float(hi[0])] if k & 1 else [(hi[0] - lo[0]) / 2.0]
+        to_remove = defaultdict(int) # Holds the count of the elements delayed for removal
+        # In the worst case, this could hold each unique number once, K, assuming the 
+        # sliding window could contain up to k unique elements
+
+        for i in range(k, len(nums)): # Right bound of window
+            heappush(lo, -heappushpop(hi, nums[i])) # Always push to lo
+            out_num = nums[i-k]
+            if out_num > -lo[0]:
+                heappush(hi, -heappop(lo))
+            to_remove[out_num] += 1
+            while lo and to_remove[-lo[0]]:
+                to_remove[-lo[0]] -= 1
+                heappop(lo)
+            while to_remove[hi[0]]:
+                to_remove[hi[0]] -= 1
+                heappop(hi)
+            if k % 2:
+                ans.append(float(hi[0]))
+            else:
+                ans.append((hi[0] - lo[0]) / 2.0)
+        return ans
+        
+        
+
         ## S1: Insort 
         ## T: O(N*K*logK) ~ O(N*K)
         ## S: O(K)
@@ -29,41 +68,6 @@ class Solution:
         return medians
 
         
-        
-        ## S2: Min Heap and Max Heap
-        ## Time: O(N logK)
-        
-        if not nums or not k:
-            return []
-        lo = [] # max heap
-        hi = [] # min heap
-        for i in range(k):
-            if len(lo) == len(hi):
-                heappush(hi, -heappushpop(lo, -nums[i]))
-            else:
-                heappush(lo, -heappushpop(hi, nums[i]))
-        ans = [float(hi[0])] if k & 1 else [(hi[0] - lo[0]) / 2.0]
-        to_remove = defaultdict(int)
-        for i in range(k, len(nums)): # right bound of window
-            heappush(lo, -heappushpop(hi, nums[i])) # always push to lo
-            out_num = nums[i-k]
-            if out_num > -lo[0]:
-                heappush(hi, -heappop(lo))
-            to_remove[out_num] += 1
-            while lo and to_remove[-lo[0]]:
-                to_remove[-lo[0]] -= 1
-                heappop(lo)
-            while to_remove[hi[0]]:
-                to_remove[hi[0]] -= 1
-                heappop(hi)
-            if k % 2:
-                ans.append(float(hi[0]))
-            else:
-                ans.append((hi[0] - lo[0]) / 2.0)
-        return ans
-        
-        
-
         
         ## S3: Sort + Insort
         ## Time: O(N*K*logK) 
