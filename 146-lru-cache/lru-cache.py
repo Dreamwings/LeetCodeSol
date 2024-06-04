@@ -13,11 +13,13 @@ class LRUCache:
     def get(self, key: int) -> int:
         if key not in self.d:
             return -1
-        val = self.d[key]
-        del self.d[key]
-        self.d[key] = val
-        # can also use move_to_end method
-        # self.d.move_to_end(key)
+        
+        self.d.move_to_end(key)
+        # can also use the following method
+        # val = self.d[key]
+        # del self.d[key]
+        # self.d[key] = val
+        
         return val
 
     def put(self, key: int, value: int) -> None:
@@ -45,8 +47,8 @@ class ListNode:
 
 class LRUCache:
     def __init__(self, capacity: int):
-        self.capacity = capacity
-        self.dic = {}
+        self.n = capacity
+        self.d = {}
         self.head = ListNode(-1, -1)
         self.tail = ListNode(-1, -1)
         self.head.next = self.tail
@@ -64,27 +66,27 @@ class LRUCache:
         node.next.prev = node.prev
 
     def get(self, key: int) -> int:
-        if key not in self.dic:
+        if key not in self.d:
             return -1
         
-        node = self.dic[key]
+        node = self.d[key]
         self.remove(node)
         self.add(node)
         return node.val
         
     def put(self, key: int, value: int) -> None:
-        if key in self.dic:
-            old_node = self.dic[key]
+        if key in self.d:
+            old_node = self.d[key]
             self.remove(old_node)
         
         node = ListNode(key, value)
-        self.dic[key] = node
+        self.d[key] = node
         self.add(node)
         
-        if len(self.dic) > self.capacity:
+        if len(self.d) > self.n:
             node_to_delete = self.head.next
             self.remove(node_to_delete)
-            del self.dic[node_to_delete.key]
+            del self.d[node_to_delete.key]
 
 
 
