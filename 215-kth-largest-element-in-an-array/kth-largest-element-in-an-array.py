@@ -6,6 +6,8 @@ class Solution:
         ## S3: Quick Select (Recursive)
         ## Time: O(N) for best and avg, O(N^2) for worst
         ## Space: O(N)
+        ## By using the median of medians algorithm, we can improve to a worst-case 
+        ## scenario time complexity of O(n).
 
         if not nums: return
         p = random.choice(nums) # pivot
@@ -54,6 +56,10 @@ class Solution:
         ## S5: Counting Sort
         ## T: O(N + M), N = len(nums), M = max_v - min_v + 1
         ## S: O(M)
+        ## Counting Sort may not be good for this question as M can be much larger than N
+        ## But if the question is K-th Most Frequent element in an array, Counting Sort
+        ## is even better than Quick Select Algorithm because we always have M <= N.
+
         min_v, max_v = min(nums), max(nums)
         m = max_v - min_v + 1
         cnt = [0] * m
