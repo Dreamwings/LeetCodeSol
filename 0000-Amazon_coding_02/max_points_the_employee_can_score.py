@@ -1,5 +1,5 @@
 ## S1: Sliding Window
-## T: O(N*M), N = len(days), M = avg of days[i]
+## T: O(N), N = len(days), M = avg of days[i]
 ## S: O(1)
 
 def max_points(days, k):
@@ -62,15 +62,16 @@ def max_points(days, k):
     
     return base_score + best_score
 
+
 # Example usage:
 days = [2, 3, 2]
 k = 4
 print(max_points(days, k))  # Output should be 8
 
-
 days = [7, 4, 3, 7, 2]
 k = 8
 print(max_points(days, k))   # Output should be 32
+
 
 ## =====================================================================
 
@@ -98,11 +99,12 @@ def max_points(days, k):
     
     return max_points
 
+
+
 # Example usage:
 days = [2, 3, 2]
 k = 4
 print(max_points(days, k))  # Output should be 8
-
 
 days = [7, 4, 3, 7, 2]
 k = 8
