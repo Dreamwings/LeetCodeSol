@@ -6,13 +6,19 @@
 
 
 Complete the function minimumNumberOfPages which has the following parameters:
+
 int pages[n]: the number of pages in each chapter
+
 int days: the maximum number of days
 
 Return:
+
 int the minimum number of pages to be read each day, or -1 if it is not possible to finish.
 
 Constraints:
+
 1 <= n <= 10^5
+
 1 <= days <= 10^9
+
 1 <= pages[i] <= 10^4
