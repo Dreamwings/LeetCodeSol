@@ -1,7 +1,11 @@
 class Solution:
     def maximalNetworkRank(self, n: int, roads: List[List[int]]) -> int:
         from collections import defaultdict
-    
+
+        ## S1:
+        ## T: O(E + V^2)
+        ## S: O(E)
+
         # Create a dictionary to count the number of roads connected to each city
         d = defaultdict(set)
 
