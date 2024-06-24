@@ -27,3 +27,41 @@ class Solution:
         res = left + mid + left[::-1]
 
         return res or '0'
+
+
+
+        ## S2: Similar to S1, easy to understand
+        ## T: O(N)
+        ## S: O(N)
+
+        d = [0] * 10
+        for c in S:
+            d[int(c)] += 1
+        
+        # Prepare to form the largest palindrome
+        left_half = []
+        mid = None
+        
+        # Iterate from the highest x to the lowest
+        for x in range(9, -1, -1):
+            # Add pairs of digits to the left half
+            while d[x] > 1:
+                left_half.append(str(x))
+                d[x] -= 2
+            # Check for a possible mid x
+            if d[x] == 1 and mid is None:
+                mid = str(x)
+        
+        # Construct the largest palindrome
+        l_half = ''.join(left_half).lstrip('0')
+        r_half = l_half[::-1]
+        if mid:
+            result = l_half + mid + r_half
+        else:
+            result = l_half + r_half
+        
+        # If result is empty, the largest value is "0" (special case for strings of zeros)
+        if not result:
+            return "0"
+        
+        return result
