@@ -3,21 +3,20 @@ class Solution:
         
         from heapq import nlargest, heappush, heappop
 
-        ## S4: Counting Sort
-        ## T: O(N + M), N = len(nums), M = maxValue - minValue
+        ## S5: Counting Sort
+        ## T: O(N + M), N = len(nums), M = max_v - min_v + 1
         ## S: O(M)
+        min_v, max_v = min(nums), max(nums)
+        m = max_v - min_v + 1
+        cnt = [0] * m
 
-        min_value = min(nums)
-        max_value = max(nums)
-        count = [0] * (max_value - min_value + 1)
+        for x in nums:
+            cnt[x - min_v] += 1
 
-        for num in nums:
-            count[num - min_value] += 1
-        
-        for num in range(len(count) -1, -1, -1):
-            k -= count[num]
+        for i in reversed(range(m)):
+            k -= cnt[i]
             if k <= 0:
-                return num + min_value
+                return i + min_v
 
         return -1
 
@@ -69,25 +68,6 @@ class Solution:
                 heappop(q)
 
         return q[0]
-
-
-
-        ## S5: Counting Sort
-        ## T: O(N + M), N = len(nums), M = max_v - min_v + 1
-        ## S: O(M)
-        min_v, max_v = min(nums), max(nums)
-        m = max_v - min_v + 1
-        cnt = [0] * m
-
-        for x in nums:
-            cnt[x - min_v] += 1
-
-        for i in reversed(range(m)):
-            k -= cnt[i]
-            if k <= 0:
-                return i + min_v
-
-        return -1
 
 
 
