@@ -2,6 +2,25 @@ class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         
         from heapq import nlargest, heappush, heappop
+
+        ## S4: Counting Sort
+        ## T: O(N + M), N = len(nums), M = maxValue - minValue
+        ## S: O(M)
+
+        min_value = min(nums)
+        max_value = max(nums)
+        count = [0] * (max_value - min_value + 1)
+
+        for num in nums:
+            count[num - min_value] += 1
+        
+        for num in range(len(count) -1, -1, -1):
+            k -= count[num]
+            if k <= 0:
+                return num + min_value
+
+        return -1
+
         
         ## S3: Quick Select (Recursive)
         ## Time: O(N) for best and avg, O(N^2) for worst
@@ -56,10 +75,6 @@ class Solution:
         ## S5: Counting Sort
         ## T: O(N + M), N = len(nums), M = max_v - min_v + 1
         ## S: O(M)
-        ## Counting Sort may not be good for this question as M can be much larger than N
-        ## But if the question is K-th Most Frequent element in an array, Counting Sort
-        ## is even better than Quick Select Algorithm because we always have M <= N.
-
         min_v, max_v = min(nums), max(nums)
         m = max_v - min_v + 1
         cnt = [0] * m
