@@ -11,6 +11,40 @@ class Solution:
         ## 2. for node at (r, c), its left child is at (r+1, c - 2**(h - r - 2))
         ## and its right child is at (r+1, c + 2**(h - r - 2))
 
+        ## S3: DFS
+        ## T: O(N), N is num of nodes
+        ## S: O(H * 2^H) ~ O(N^2) since H = N for worst case
+
+        # Helper function to calculate the height of the tree. 
+        # The height is the number of edges in the longest path from the root to a leaf.
+        def height(node):
+            if node is None:
+                return 0
+            # The height of a node is 1 plus the maximum height of its two children
+            return 1 + max(height(node.left), height(node.right))
+
+        # Helper function for the depth-first search that will populate the answer matrix.
+        def dfs(node, row, col):
+            if node is None:
+                return
+            
+            matrix[row][col] = str(node.val)
+            # The offset for placing the next nodes is determined by the height at that level.
+            offset = 2 ** (h - row - 2)
+            # Recur for left child, updating the row and shifting the column to the left.
+            dfs(node.left, row + 1, col - offset)
+            # Recur for right child, updating the row and shifting the column to the right.
+            dfs(node.right, row + 1, col + offset)
+
+        # Calculate the height of the tree, also the matrix row num
+        h = height(root)
+        # Calculates the matrix col num
+        w = 2 ** h - 1
+        
+        matrix = [["" for _ in range(w)] for _ in range(h)]
+        dfs(root, 0, (w - 1) // 2)
+        
+        return matrix
 
 
         ## S2: DFS
@@ -22,20 +56,20 @@ class Solution:
                 return 0
             return 1 + max(get_height(node.left), get_height(node.right))           
         
-        def update_matrix(node, row, lo, hi):
+        def dfs(node, row, lo, hi):
             # node, node row number, col lower bound, col upper bound
             if not node:
                 return
             col = (lo + hi) // 2
             m[row][col] = str(node.val)
-            update_matrix(node.left, row + 1 , lo, col - 1)
-            update_matrix(node.right, row + 1 , col + 1, hi)
+            dfs(node.left, row + 1 , lo, col - 1)
+            dfs(node.right, row + 1 , col + 1, hi)
             
         h = get_height(root)
         w = 2 ** h - 1
         m = [[''] * w for i in range(h)]
         
-        update_matrix(node=root, row=0, lo=0, hi=w - 1)
+        dfs(node=root, row=0, lo=0, hi=w - 1)
 
         return m
         
