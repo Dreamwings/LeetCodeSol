@@ -13,7 +13,7 @@ class Solution:
 
         ## S3: Heap Merge
         ## T: O(NlogK), K is num of employees, N is total num of intervals
-        ## S: O(K)
+        ## S: O(K), Min Heap only maintains K elem during execution
 
         # Create an iterator using heapq.merge
         it = heapq.merge(*schedule, key=operator.attrgetter('start'))
@@ -26,6 +26,7 @@ class Solution:
             pre_end = max(pre_end, s.end)
         
         return res
+
 
         ## S2: Min Heap
         ## T: O(NlogK), K is num of employees, N is total num of intervals
