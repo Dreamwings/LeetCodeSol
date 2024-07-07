@@ -1,7 +1,7 @@
 class Solution:
     def buildWall(self, height: int, width: int, bricks: List[int]) -> int:
         from collections import defaultdict
-        
+        """
         ## S1: DFS + DP
         ## B = len(bricks), K is the max num of bricks a row can take
         ## H = height, W = width, N = len(all_rows) ~ B**K
@@ -77,4 +77,50 @@ class Solution:
                     dp[i][j] %= M
         
         return sum(dp[-1]) % M
+        """
+
+
+        ## S2: DFS with Cache
+
+        combos = []
+        # 1. find all possible bottom row combination (combos)
+        def get_combos(cur, cur_sum):                     
+            nonlocal combos, width
+            if cur_sum > width: return
+            if cur_sum == width:
+                combos.append(tuple(cur)) 
+                return
+            for brick in bricks:
+                get_combos(cur + [brick], cur_sum + brick)
+        get_combos([], 0)
         
+        d = collections.defaultdict(list) # make a adjacency list for {combo: [possible_neighbor_row...]}
+        
+        # 2. for each `combo`, find its possible neighbor row
+        for i, combo in enumerate(combos):                
+            s, cur = set(), 0
+            for val in combo[:-1]:                        
+                s.add(cur:=cur+val)
+            for j, nei in enumerate(combos):    
+                cur = 0                
+                for val in nei[:-1]:
+                    cur += val
+                    if cur in s: break
+                else:                        
+                    d[combo].append(nei)
+                    
+        ans, mod = 0, int(1e9+7)
+        
+        # count number of ways build brick up to `height` 
+        @cache
+        def dfs(combo, h):                                
+            nonlocal ans, d, height
+            if height == h: return 1
+            return sum(dfs(nei, h+1) for nei in d[combo])
+
+        # 3. for each `combo`, starting from bottom row, build up to `height`    
+        for combo in combos:                              
+            ans += dfs(combo, 1) % mod
+            
+        return ans % mod   
+
