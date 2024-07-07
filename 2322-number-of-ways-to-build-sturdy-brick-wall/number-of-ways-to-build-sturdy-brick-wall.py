@@ -1,7 +1,7 @@
 class Solution:
     def buildWall(self, height: int, width: int, bricks: List[int]) -> int:
         from collections import defaultdict
-        """
+        
         ## S1: DFS + DP
         ## B = len(bricks), K is the max num of bricks a row can take
         ## H = height, W = width, N = len(all_rows) ~ B**K
@@ -77,7 +77,7 @@ class Solution:
                     dp[i][j] %= M
         
         return sum(dp[-1]) % M
-        """
+        
 
 
         ## S2: DFS with Cache
