@@ -13,7 +13,7 @@ class Solution:
                 uf[x] = find(uf[x])
             return uf[x]
 
-        def union(x, y):
+        def union(x, y): # quick-union?
             x, y = find(x), find(y)
             if x != y:
                 self.groups -= 1
