@@ -10,8 +10,8 @@ class Solution:
         for i, c in enumerate(s):
             if c.isdigit():
                 v = 10 * v + int(c)
-                
-            if not c.isdigit() and c != " " or i == len(s) - 1:
+            
+            if i == len(s) - 1 or (c in "+-*/"):
                 if pre_op == "+":
                     res += pre_v
                     pre_v = v
@@ -19,15 +19,13 @@ class Solution:
                     res += pre_v
                     pre_v = -v
                 elif pre_op == "*":
-                    pre_v = pre_v * v
-                elif pre_op == "/":
-                    pre_v = int(pre_v / v)
+                    pre_v = pre_v * v   # Note update pre_v here
+                else: # pre_op == "/":
+                    pre_v = int(pre_v / v)   # Note update pre_v here
                 
                 v, pre_op = 0, c
-        
+
         return res + pre_v
-
-
 
 
 
