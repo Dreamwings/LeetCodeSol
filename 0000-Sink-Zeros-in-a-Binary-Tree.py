@@ -65,32 +65,32 @@ class Node:
 
 
 class Solution:
-    def sink_zeros_in_binary_tree(root: TreeNode) -> None:
+    def sink_zeros(root: TreeNode) -> None:
 
         ## S2: DFS (By ChatGPT)
         ## T: O(N)
         ## S: O(H) ~ O(N) for worst case
 
-        if not node:
-            return
-        
-        # Sink zeros in the left and right subtrees first
-        sink_zeros(node.left)
-        sink_zeros(node.right)
-        
-        # If current node is zero, we need to sink it down
-        if node.val == 0:
-            if node.left and node.left.val != 0:
-                # Swap values with the left child if it's non-zero
-                node.val, node.left.val = node.left.val, node.val
-                # Recursively sink the zero in the left subtree
-                sink_zeros(node.left)
-            elif node.right and node.right.val != 0:
-                # Swap values with the right child if it's non-zero
-                node.val, node.right.val = node.right.val, node.val
-                # Recursively sink the zero in the right subtree
-                sink_zeros(node.right)
-            # If both children are zero or non-existent, zero remains at this node
+        if not root:
+            return None
+
+        # Recursively sink zeros in the left and right subtrees
+        root.left = sink_zeros(root.left)
+        root.right = sink_zeros(root.right)
+
+        # If root is zero, we need to sink it
+        if root.val == 0:
+            if root.left and root.left.val != 0:
+                # Swap root with left child if left child is non-zero
+                root.val, root.left.val = root.left.val, root.val
+                root.left = sink_zeros(root.left)
+            elif root.right and root.right.val != 0:
+                # Swap root with right child if right child is non-zero
+                root.val, root.right.val = root.right.val, root.val
+                root.right = sink_zeros(root.right)
+
+        return root
+
 
 
 
