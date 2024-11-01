@@ -13,8 +13,8 @@ class Solution:
         bucket = [[] for _ in range(max_freq + 1)]
         
         # O(N)
-        for x, f in d.items(): 
-            bucket[f].append(x)
+        for val, freq in d.items(): 
+            bucket[freq].append(val)
         
         # O(N)
         res = [x for arr in bucket for x in arr]
